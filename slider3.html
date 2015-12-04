@@ -22,19 +22,7 @@
         margin: 0;
         background-color: #000;
     }
-    ul {
-        margin: 0;
-        list-style-type: square;
-        text-align: center;
-        padding-left:0;
-    }
-    li { 
-        display: inline-block;
-        border: 2px solid rgb(255, 255, 255);
-        padding: 5px;
-        border-radius: 6px;
-        vertical-align: bottom;
-    }
+    
     .item1 {
         background-color: yellow;
     }
@@ -51,7 +39,8 @@
                 vertical-align: bottom;
                 display: inline-block;
                 top: 70px;
-                left: 650px;
+                
+                
                 position: absolute;
                 z-index: 1;
             }
@@ -86,6 +75,7 @@
                         }
             $('.headline').text(callHeadline(i));
             shift();
+            console.log("Position left: "+$('.headline').position().left);
             setTimeout(swap,5000,i);
      });
 
@@ -93,12 +83,14 @@
             window.addEventListener("resize", function() {
                                     console.log("Window width: "+window.outerWidth);
                                     console.log("Window height: "+window.outerHeight);
-                                    var view = window.outerWidth;
+                                    var len = $(".headline").width();
+                                    var v = $("#frame").width();
+                                    var view = window.innerWidth;
                                     var high = window.outerHeight;
-                                    var adjust = view/2.17;
+                                    var adjust = v/2;
                                     var y = high/3.48;
                                     var hy = high/11.2;
-                                    $(".headline").css("left",adjust);
+                                    $(".headline").css("left",(adjust-(len/2)));
                                     $(".headline").css("top",hy);
 
                                     console.log("Headline top: "+hy);
@@ -113,9 +105,13 @@
 
             function swap(i) {
                         
-                        $(".headline").css("left","0");
+                        $(".headline").css("left",0);
                         if(i==0) {
                                     i = 1;
+                                    //console.log($('#frame').attr("class"));
+                                    var option = $('#frame').attr("class");
+                                    //console.log($(this).attr("class"));
+                                    $("#beach").toggle(option);
                                     $("#beach").show();
                                     $("#forest").hide();
                                     insert(callHeadline(i));
@@ -155,15 +151,16 @@
 
                             $(".headline").text(text);
                             //$(".headline").toggle("slide");
-                            //console.log($('.headline').css("left"));
                             shift();
                     }
 
             function shift() {
-
+                        var len = $(".headline").width();
                         var pixels = 20;
                         win = window.innerWidth;
-                        var lim = win/2.17;
+                        w = $("#frame").width();
+                        var lim = w/2;
+                        console.log(lim);
                         
                         /*window.addEventListener("resize", function() {
                                     console.log("Window size: "+window.innerWidth);
@@ -185,18 +182,22 @@
                                                 lim = 650;
                                             }*/
                         //console.log("Inside shift "+lim);
-                        if($('.headline').position().left<lim) {
+                        if($('.headline').position().left<(lim-(len/2))) {
                                     //console.log($('.headline').css("left"));
                                     $(".headline").css("left","+="+pixels+"px");
-                                   //console.log($('.headline').position().left); 
-                                    setTimeout( shift, 15);
+                                    //console.log($('.headline').position().left); 
+                                    setTimeout( shift, 150);
+                                    console.log("Position left: "+$('.headline').position().left);
+                                    console.log("CSS Left: "+$('.headline').css("left"));
                                 } 
-                                //console.log("Reached limit:"+$('.headline').css("left")); 
+                                console.log($('.headline').position().left);
+                                console.log("Reached limit:"+$('.headline').css("left")); 
+
                     }
     </script>
 </head>
 <body>
-<div id="banner" style="background-color: blue; width: 100%; height: 225px; overflow: hidden;">
+<!--<div id="banner" style="background-color: blue; width: 100%; height: 225px; overflow: hidden;">
     <h1 class="headline"></h1>
 	<div id="forest" style='background-image: url(); display: block; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px; '>
 	</div>
@@ -214,12 +215,22 @@
             <li class="item3"> </li>
             <li class="item4"> </li>
         </ul>
-	</div>
-    <ul style="background-color: blue; display: block;">
-            <li class="" style="background-image: url('images/forest.jpg'); display: block; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;" > </li>
-            <li class=""> </li>
-            <li class=""> </li>
-            <li class=""> </li>
-    </ul>
+	</div>-->
+    <!--<ul id="frame" style="background-color: blue; height: 225px; padding-left: 0px; margin: 0">
+            <h1 class="headline"></h1>
+            <li id = "forest" class="" style="background-image: url('images/forest.jpg'); display: block; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;"> </li>
+            <li id="beach" class="" style="background-image: url('images/beach.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;"> </li>
+            <li id="sea" class="" style="background-image: url('images/sea.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;"> </li>
+            <li id="abstract1" class="" style="background-image: url('images/abstract1.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;"> </li>
+    </ul>-->
+    <div style="width: 50%">
+        <ul id="frame" class="fade" style="background-color: blue; height: 225px; padding-left: 0px; margin: 0">
+            
+            <li id = "forest" class="" style="background-image: url('images/forest.jpg'); display: block; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;"><h1 class="headline"></h1></li>
+            <li id="beach" class="" style="background-image: url('images/beach.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;"> <h1 class="headline"></h1></li>
+            <li id="sea" class="" style="background-image: url('images/sea.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;"><h1 class="headline"></h1></li>
+            <li id="abstract1" class="" style="background-image: url('images/abstract1.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;"> <h1 class="headline"></h1></li>
+        </ul>
+    </div>
 </body>
 </html>
