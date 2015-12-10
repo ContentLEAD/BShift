@@ -158,6 +158,10 @@
 
             function shift(i) {
                         console.log("Inside Shift, i is equal to "+i);
+                len = $(".headline");
+                lenght = len.length;
+                
+                
                         var len = $(".headline").width();
                         var pixels = 20;
                         win = window.innerWidth;
@@ -188,8 +192,8 @@
                         var limit = lim - (len/2);
                         var all_headlines = document.getElementsByClassName("headline");
                         current_headline = all_headlines[i];
-                        var repo = 0;
-                        current_headline.style.left = repo;
+                        var repo = i;
+                        current_headline.style.left = repo+"px";
                         console.log("!!!!!Headline " +i+ " left pos "+current_headline.style.left);
                         //console.log("!!!!!Headline " +i+ " left pos "+all_headlines[0].style.left);
                         if(repo<150) {
@@ -198,8 +202,8 @@
                                     repo += pixels;
                                     current_headline.style.left=+repo+"px";
                                     //all_headlines[i].css("left","+="+pixels+"px");
-                                    console.log("XXXXXXXXXXPosition Left for Headline "+i+" inside setTimeout function is exactly "+$('.headline').position().left);
-                                    setTimeout( shift, 1500,i);
+                                    console.log("XXXXXXXXXXPosition Left for Headline "+repo+" inside setTimeout function is exactly "+$('.headline').position().left);
+                                    setTimeout( shift, 1500,repo);
                                 }
                                 //all_headlines[i].style.left=0; 
                                 console.log("Position Left is exactly "+$('.headline').position().left);
@@ -208,6 +212,25 @@
                                 
 
                     }
+        
+        var animate = function( animation, timeparameters){
+            $(this)
+        }
+        function loop(firstitem, i){
+            
+            var next = firstitem.nextSibling();
+            next.animate( animation, timeparameters);
+            firstitme.toggle();
+            
+            if(i != 0){ next.toggle();}
+            ++i;
+            setTimeout(loop, (parametners), 5000)
+        }
+        var lis = $('#frame').find('li');
+        var count = lis.length;
+        firstitem = lis[0];
+        i = 0;
+        loop(firstitem, i);
     </script>
 </head>
 <body>
@@ -238,11 +261,15 @@
             <li id="abstract1" class="" style="background-image: url('images/abstract1.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;"> </li>
     </ul>-->
     <div style="width: 50%">
-        <ul id="frame" class="fade" style="background-color: #000; height: 225px; padding-left: 0px; margin: 0">
+        <ul id="frame" class="bshift-slider animation-fade main-container-slider" style="background-color: #000; height: 225px; padding-left: 0px; margin: 0">
             
-            <li id = "forest" class="" style="background-image: url('images/forest.jpg'); display: block; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
-                <div><h1 class="headline"></h1></div></li>
-            <li id="beach" class="" style="background-image: url('images/beach.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
+            <li id = "trees" class="" style="background-image: url('images/forest.jpg') display: block; background-size:cover; height: 100%;width: 100%; background-position:50%, 50%">trees
+                <!-- everything should have identifiers-->
+                <div>
+                    <h1 class="headline">klsdajflaksdjfa</h1>
+                </div>
+            </li>
+            <li id="beach" class="" style="background-image: url('images/beach.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position:center">
                 <div><h1 class="headline"></h1></div></li>
             <li id="sea" class="" style="background-image: url('images/sea.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
                 <div><h1 class="headline"></h1></div></li>
@@ -252,3 +279,8 @@
     </div>
 </body>
 </html>
+
+<script>
+var id = '.tony';
+    $(id);
+</script>
