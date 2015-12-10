@@ -41,7 +41,7 @@
                 top: 70px;
                 
                 
-                position: absolute;
+                position: relative;
                 z-index: 1;
             }
      
@@ -57,7 +57,7 @@
 
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script>
+    <script async>
     $(document).ready(function() {
             var sourceArray = ["images/forest.jpg","images/beach.jpg","images/sea.jpg","images/abstract1.jpg"];
             $("#forest").css("background-image","url("+sourceArray[0]+")");
@@ -66,23 +66,23 @@
             $("#abstract1").css("background-image","url("+sourceArray[3]+")");
             var i = 0;
             var view = window.outerWidth;
-            console.log(view);
+            console.log("Window outer width ="+view);
             console.log("Window height: "+window.outerHeight);
-            if(view<600) {
+            /*if(view<600) {
                             $(".headline").css("left","0");
                         } else { 
                                 $(".headline").css("left","650"); 
-                        }
+                        }*/
             $('.headline').text(callHeadline(i));
-            shift();
+            shift(i);
             console.log("Position left: "+$('.headline').position().left);
             setTimeout(swap,5000,i);
      });
 
             
             window.addEventListener("resize", function() {
-                                    console.log("Window width: "+window.outerWidth);
-                                    console.log("Window height: "+window.outerHeight);
+                                    //console.log("Window width: "+window.outerWidth);
+                                    //console.log("Window height: "+window.outerHeight);
                                     var len = $(".headline").width();
                                     var v = $("#frame").width();
                                     var view = window.innerWidth;
@@ -105,62 +105,65 @@
 
             function swap(i) {
                         
-                        $(".headline").css("left",0);
+                        //$(".headline").css("left",0);
+                        console.log("Headline "+i+" Position Left"+$('.headline')[i].style.left);
+                        var option = $('#frame').attr("class");
                         if(i==0) {
                                     i = 1;
                                     //console.log($('#frame').attr("class"));
-                                    var option = $('#frame').attr("class");
+                                    
                                     //console.log($(this).attr("class"));
                                     $("#beach").toggle(option);
-                                    $("#beach").show();
+                                    //$("#beach").show();
                                     $("#forest").hide();
-                                    insert(callHeadline(i));
-                                    //$(".headline").css("left","100");
+                                    insert(callHeadline(i),i);
+                                    $(".headline").css("left",0);
                                     $(".item1").css("background-color","blue");
                                     $(".item2").css("background-color","yellow");
                                     setTimeout(swap,5000,i);
                                 
                             } else if (i==1) {
                                 i = 2;
-                                $("#sea").show();
-                                $("#beach").hide();
-                                insert(callHeadline(i));
+                                $("#sea").toggle(option);
+                                $("#beach").toggle();
+                                insert(callHeadline(i),i);
                                 $(".item2").css("background-color","blue");
                                 $(".item3").css("background-color","yellow");
                                 setTimeout(swap,5000,i);
                             } else if(i==2){
                                 i = 3;
-                                $("#abstract1").show();
-                                $("#sea").hide();
-                                insert(callHeadline(i));
+                                $("#abstract1").toggle(option);
+                                $("#sea").toggle();
+                                insert(callHeadline(i),i);
                                 $(".item3").css("background-color","blue");
                                 $(".item4").css("background-color","yellow");
                                 setTimeout(swap,5000,i);
                             } else if(i==3){
                                 i = 0;
-                                $("#forest").show();
-                                $("#abstract1").hide();
-                                insert(callHeadline(i));
+                                $("#forest").toggle(option);
+                                $("#abstract1").toggle(option);
+                                insert(callHeadline(i),i);
                                 $(".item4").css("background-color","blue");
                                 $(".item1").css("background-color","yellow");
                                 setTimeout(swap,5000,i);
                             }
                         }
 
-            function insert(text) {
+            function insert(text,i) {
 
                             $(".headline").text(text);
                             //$(".headline").toggle("slide");
-                            shift();
+                            shift(i);
                     }
 
-            function shift() {
+            function shift(i) {
+                        console.log("Inside Shift, i is equal to "+i);
                         var len = $(".headline").width();
                         var pixels = 20;
                         win = window.innerWidth;
                         w = $("#frame").width();
                         var lim = w/2;
-                        console.log(lim);
+                        console.log("Limit is: " +lim);
                         
                         /*window.addEventListener("resize", function() {
                                     console.log("Window size: "+window.innerWidth);
@@ -182,16 +185,27 @@
                                                 lim = 650;
                                             }*/
                         //console.log("Inside shift "+lim);
-                        if($('.headline').position().left<(lim-(len/2))) {
+                        var limit = lim - (len/2);
+                        var all_headlines = document.getElementsByClassName("headline");
+                        current_headline = all_headlines[i];
+                        var repo = 0;
+                        current_headline.style.left = repo;
+                        console.log("!!!!!Headline " +i+ " left pos "+current_headline.style.left);
+                        //console.log("!!!!!Headline " +i+ " left pos "+all_headlines[0].style.left);
+                        if(current_headline.style.left<150) {
                                     //console.log($('.headline').css("left"));
-                                    $(".headline").css("left","+="+pixels+"px");
-                                    //console.log($('.headline').position().left); 
-                                    setTimeout( shift, 150);
-                                    console.log("Position left: "+$('.headline').position().left);
-                                    console.log("CSS Left: "+$('.headline').css("left"));
-                                } 
-                                console.log($('.headline').position().left);
-                                console.log("Reached limit:"+$('.headline').css("left")); 
+                                    //$(current_headline).css("left","+="+pixels+"px");
+                                    repo += pixels;
+                                    current_headline.style.left=repo+"px";
+                                    //all_headlines[i].css("left","+="+pixels+"px");
+                                    console.log("XXXXXXXXXXPosition Left for Headline "+i+" inside setTimeout function is exactly "+$('.headline').position().left);
+                                    setTimeout( shift, 1500,i);
+                                }
+                                //all_headlines[i].style.left=0; 
+                                console.log("Position Left is exactly "+$('.headline').position().left);
+                                console.log("Reached limit:"+limit); 
+                                
+                                
 
                     }
     </script>
@@ -224,12 +238,16 @@
             <li id="abstract1" class="" style="background-image: url('images/abstract1.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;"> </li>
     </ul>-->
     <div style="width: 50%">
-        <ul id="frame" class="fade" style="background-color: blue; height: 225px; padding-left: 0px; margin: 0">
+        <ul id="frame" class="fade" style="background-color: #000; height: 225px; padding-left: 0px; margin: 0">
             
-            <li id = "forest" class="" style="background-image: url('images/forest.jpg'); display: block; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;"><h1 class="headline"></h1></li>
-            <li id="beach" class="" style="background-image: url('images/beach.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;"> <h1 class="headline"></h1></li>
-            <li id="sea" class="" style="background-image: url('images/sea.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;"><h1 class="headline"></h1></li>
-            <li id="abstract1" class="" style="background-image: url('images/abstract1.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;"> <h1 class="headline"></h1></li>
+            <li id = "forest" class="" style="background-image: url('images/forest.jpg'); display: block; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
+                <div><h1 class="headline"></h1></div></li>
+            <li id="beach" class="" style="background-image: url('images/beach.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
+                <div><h1 class="headline"></h1></div></li>
+            <li id="sea" class="" style="background-image: url('images/sea.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
+                <div><h1 class="headline"></h1></div></li>
+            <li id="abstract1" class="" style="background-image: url('images/abstract1.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
+                <div><h1 class="headline"></h1></div></li>
         </ul>
     </div>
 </body>
