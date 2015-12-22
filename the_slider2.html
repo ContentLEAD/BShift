@@ -54,9 +54,10 @@
             height: 25px;
             top: 225px; 
      }
-     .frame {
+     #frame {
 
             overflow: hidden;
+
      }
 
     </style>   
@@ -108,7 +109,7 @@
                 function setHeadline(headline,i) {
                         var h = $(headline);
                         var pixels = 20;
-                        console.log("In setHeadline function.  Left position: ", + $(headlines).position().left);
+                        //console.log("In setHeadline function.  Left position: ", + $(headlines).position().left);
                         //$(headlines[i]).css("left","200px");
                         //console.log("i equals: "+i);
                         //if(i==3){ i=0; $(headline).position().left=0;}
@@ -126,13 +127,27 @@
                             //console.log("Left: " +$(headline).css("left"));
                         //$(headline).css("left", "10px");
                 }
+
+                window.addEventListener("resize", function() {
+                                    //console.log("Window width: "+window.outerWidth);
+                                    //console.log("Window height: "+window.outerHeight);
+                                    
+                                    var high = window.innerHeight;
+                                    var y = high/3.48;
+                                    var hy = high/11.2;
+                                    $(".headline").css("top",hy+"px");
+
+                                    console.log("Headline top: "+hy);
+                                    $("#frame").css("height",y+"px");
+                                    //$("#banner-footer").css("top",y);
+                                });
            
         });
     </script>
 </head>
 <body>
     <div style="width: 50%">
-        <ul id="frame" class="fade" style="background-color: #000; height: 225px; padding-left: 0px; margin: 0; overflow: hidden;">
+        <ul id="frame" class="fade" style="background-color: #000; height: 20%; max-height: 225px; padding-left: 0px; margin: 0; overflow: hidden;">
             
             <li id = "forest" class="" style="background-image: url('images/forest.jpg'); display: block; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
                 <div>
