@@ -39,7 +39,7 @@
                 vertical-align: bottom;
                 display: inline-block;
                 top: 70px;
-                left: 320px;
+                
                 
                 position: relative;
                 z-index: 1;
@@ -61,54 +61,17 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script async>
         $(document).ready(function() {
-            var i = 0;
             var slides = $('#frame').find('li');
-            var headlines = $('#frame').find('.headline');
-            //console.log($(headlines[i]).css('left'));
             var count = slides.length;
-            setTimeout(loop,2000,slides,i,count);
-           
-            function loop(slides,i,count) {
-                var j= 0;
-                current = slides[i];
-                var headlines = $('#frame').find('.headline');
-                if(i>(count-1)){
-                        i = j;
-                        console.log("count: "+count);
-                        //console.log($(slides[i]).attr('id'));
-                        $(slides[j]).toggle($(slides[j]).attr('class'));
-                    }  else{             
-                        $(slides[i]).toggle($(slides[i]).attr('class'));
-                    }
-                console.log("i equals: "+i);
-                //console.log($(slides[i]).attr('id'));
-                $(slides[++i]).toggle($(slides[i]).attr('class'));
-                //console.log("Before setHeadline function: ", + $(headlines).position().left);
-                $(headlines).position().left=0;
-                //setHeadline(headlines,i);
-
-               
-                //
-
-                setTimeout(loop,5000,slides,i,count);
-                }
-
-                function setHeadline(headlines,i) {
-                        var pixels = 20;
-                        //console.log("In setHeadline function.  Left position: ", + $(headlines).position().left);
-                        //$(headlines[i]).css("left","200px");
-                        //console.log("i equals: "+i);
-                        if(i==4){ i=0;$(headlines[i]).position().left=0;}
-                        if($(headlines[i]).position().left<320) {
-                                //console.log("In setHeadline function: ", + $(headlines[i]));
-                                $(headlines[i]).css("left","+="+pixels+"px");
-                                //console.log($(headlines[i]).position().left);
-                                setTimeout(setHeadline,500,headlines,i);
-                            }
-                        $(headlines[i]).position().left=0;
-                }
-           
-        });
+            for(i=0;i<count;++i) {
+                first=slides[i];
+                loop(first,i);
+            }
+            function loop(first,i) {
+                first.toggle();
+                console.log(first);
+            }
+        }
     </script>
 </head>
 <body>
