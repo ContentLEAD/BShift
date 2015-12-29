@@ -81,6 +81,36 @@
             var count = slides.length;
             setTimeout(loop,2000,slides,i,count);
            
+            //List out all the information you need to get for each slide pleasae
+            //
+            //
+            //
+            //
+            //
+            //
+            //
+            //
+            //
+            //
+            //
+            //
+            //
+            //
+            // Now Build a function whose only job is to get all that information and store it in an array. return the finished array.
+            //
+            //
+            //
+            //
+            //
+            //
+            //
+            //
+            //
+            //
+            //
+            //
+            //
+            
             function loop(slides,i,count) {
                 var j = i + 1;
                 if(j == count){ j = 0; }
@@ -122,7 +152,7 @@
                 
                 setTimeout(loop,5000,slides,j,count);
                 }
-
+                //headline fuction doesn't work at 100% screen width.  this function would need to be responsive as well.  I would scrap this for now and focus on Just getting the slides to do all the work instead insead.
                 function setHeadline(headline,i) {
                         var h = $(headline);
                         var pixels = 20;
@@ -154,35 +184,62 @@
 </head>
     <!-- Need to now add in the navigation for moving to the next slide or previous slide.  1. arrow navigation on the left and the right. 2. bubble navigation on the bottom  -->
 <body>
+    <?php
+        $slides = array();
+        $slides[] = array(
+            'id'    => 'forest',
+            'class' => '',
+            'slideImage'    => 'images/forest.jpg',
+            'headline'  => 'Forest',
+            'styles'    => '',
+            'content'   => '<p>Etiam sit amet orci eget eros faucibus tincidunt. Vestibulum purus quam, scelerisque ut, mollis sed, nonummy id, metus. Phasellus blandit leo ut odio. Praesent blandit laoreet nibh. Nunc interdum lacus sit amet orci.</p><p>Vestibulum rutrum, mi nec elementum vehicula, eros quam gravida nisl, id fringilla neque ante vel mi. Praesent ut ligula non mi varius sagittis. Praesent nonummy mi in odio. Vestibulum fringilla pede sit amet augue. In auctor lobortis lacus.</p>'
+            );
+        $slides[] = array(
+            'id'    => 'beach',
+            'class' => '',
+            'slideImage'    => 'images/beach.jpg',
+            'headline'  => 'Beach',
+            'styles'    => '',
+            'content'   => ''
+            );
+        $slides[] = array(
+            'id'    => 'sea',
+            'class' => '',
+            'slideImage'    => 'images/sea.jpg',
+            'headline'  => 'Sea',
+            'styles'    => '',
+            'content'   => ''
+            );
+        $slides[] = array(
+            'id'    => 'abstract1',
+            'class' => '',
+            'slideImage'    => 'images/abstract1.jpg',
+            'headline'  => 'Abstract',
+            'styles'    => '',
+            'content'   => ''
+            );
+        $slides[] = array(
+            'id'    => 'vacation',
+            'class' => '',
+            'slideImage'    => 'images/vacation.jpg',
+            'headline'  => 'Vacation',
+            'styles'    => '',
+            'content'   => ''
+            );
+    ?>
     <div style="width: 100%">
         <ul id="frame" class="fade" style="background-color: #000; height: 250px; padding-left: 0px; margin: 0; overflow: hidden;">
 
             <!-- Each li should have the animation specified not the ul -->
-            <li id = "forest" class="" style="background-image: url('images/forest.jpg'); display: block; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
+            <?php foreach($slides as $slide){ ?>
+            <li id = "<?php echo $slide['id']; ?>" class="<?php echo $slide['class']; ?>" style="background-image: url('<?php echo $slide['slideImage']; ?>'); display: block; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
                 <div>
-                    <h1 class="headline">Forest</h1>
+                    <!-- need to start setting some basic constraitns on the elements to ensure they always render as good as possible under minimal settings. -->
+                    <h1 class="headline"><?php echo $slide['headline']; ?></h1>
+                    <?php echo $slide['content']; ?>
                 </div>
             </li>
-            <li id="beach" class="" style="background-image: url('images/beach.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
-                <div>
-                    <h1 class="headline">Beach</h1>
-                </div>
-            </li>
-            <li id="sea" class="" style="background-image: url('images/sea.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
-                <div>
-                    <h1 class="headline">Sea</h1>
-                </div>
-            </li>
-            <li id="abstract1" class="" style="background-image: url('images/abstract1.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
-                <div>
-                    <h1 class="headline">Abstract</h1>
-                </div>
-            </li>
-            <li id="vacation" class="" style="background-image: url('images/vacation.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
-                <div>
-                    <h1 class="headline">Vacation</h1>
-                </div>
-            </li>
+            <?php } ?>
         </ul>
     </div>
 </body>
