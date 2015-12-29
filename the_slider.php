@@ -3,7 +3,23 @@
 <head>
     <meta charset="UTF-8" />
     <style>
-
+        /* Start now using more descriptive classes and ID names.  frame, banner, healine are far too generic */
+    @media (max-width:480px) {
+            .headline {
+                font-size: 34px;
+                color: #FFF;
+                Font-family: Helvetica;
+                font-weight: 600;
+                font-style: italic;
+                /* vertical align only work with the display: table property */
+                /*vertical-align: bottom;*/
+                display: inline-block;
+                top: 70px;
+                left: 150px;
+                position: absolute;
+                z-index: 1;
+                }
+    }
     body {
         margin: 0;
         background-color: #000;
@@ -12,7 +28,10 @@
     .item1 {
         background-color: yellow;
     }
-    
+    #banner {
+                height: 225px; 
+                width: auto;                
+            }
     .headline {
                 font-size: 34px;
                 color: #FFF;
@@ -21,7 +40,9 @@
                 font-style: italic;
                 vertical-align: bottom;
                 display: inline-block;
-                top: 70px;            
+                top: 70px;
+                
+                
                 position: relative;
                 z-index: 1;
             }
@@ -35,41 +56,10 @@
             height: 25px;
             top: 225px; 
      }
-     #frame {
+     .frame {
 
             overflow: hidden;
-            height: 245px; 
-            width: auto;  
      }
-     @media (max-width:768px) {
-            #frame {
-                height: 195px;
-            }
-     }
-     @media (max-width:480px) {
-            .headline {
-                font-size: 34px;
-                color: #FFF;
-                font-family: Helvetica;
-                font-weight: 600;
-                font-style: italic;
-                vertical-align: bottom;
-                display: inline-block;
-                top: 70px;
-                left: 150px;
-                position: absolute;
-                z-index: 1;
-                margin: auto;
-                }
-
-        #frame {
-
-                overflow: hidden;
-                height: 145px; 
-                width: 100%;
-                
-            }
-    }
 
     </style>   
 
@@ -80,6 +70,7 @@
         $(document).ready(function() {
             i = 0;
             var slides = $('#frame').find('li');
+            var myslides = getinfo(slides);
             var headlines = $('#frame').find('.headline');
             var hl = $(headlines[i]);
             var hl_width = hl.width();
@@ -91,6 +82,25 @@
             var count = slides.length;
             setTimeout(loop,2000,slides,i,count);
            
+            //List out all the information you need to get for each slide pleasae
+            // type of slide animation
+            // background color or image 
+            // height
+            // width
+            // 
+            //
+            // Now Build a function whose only job is to get all that information and store it in an array. return the finished array.
+            // function getInfo(slides){
+            //  var info = new array();
+            // foreach(slides as slide){
+            //      var s = new array();
+            //      s['animate'] = 'fade';
+            //      info.add(info, s);
+            //  }
+            //     return info;
+            // }
+            //
+            
             function loop(slides,i,count) {
                 var j = i + 1;
                 if(j == count){ j = 0; }
@@ -132,7 +142,7 @@
                 
                 setTimeout(loop,5000,slides,j,count);
                 }
-
+                //headline fuction doesn't work at 100% screen width.  this function would need to be responsive as well.  I would scrap this for now and focus on Just getting the slides to do all the work instead insead.
                 function setHeadline(headline,i) {
                         var h = $(headline);
                         var pixels = 20;
@@ -164,36 +174,40 @@
 </head>
     <!-- Need to now add in the navigation for moving to the next slide or previous slide.  1. arrow navigation on the left and the right. 2. bubble navigation on the bottom  -->
 <body>
+    <?php
+        $slides = array();
+        $slides[] = array(
+            'id'    => 'forest',
+            'animation' => 'animate-slide-fade',
+            'class' => '',
+            'slideImage'    => 'images/forest.jpg',
+            'headline'  => 'Forest',
+            'styles'    => '',
+            'content'   => '<h2>forest subheading</h2><p>Etiam sit amet orci eget eros faucibus tincidunt. Vestibulum purus quam, scelerisque ut, mollis sed, nonummy id, metus. Phasellus blandit leo ut odio. Praesent blandit laoreet nibh. Nunc interdum lacus sit amet orci.</p><p>Vestibulum rutrum, mi nec elementum vehicula, eros quam gravida nisl, id fringilla neque ante vel mi. Praesent ut ligula non mi varius sagittis. Praesent nonummy mi in odio. Vestibulum fringilla pede sit amet augue. In auctor lobortis lacus.</p>'
+            );
+        $slides[] = array(
+            'id'    => 'beach',
+            'class' => '',
+            'slideImage'    => 'images/beach.jpg',
+            'headline'  => 'Beach',
+            'styles'    => '',
+            'content'   => ''
+            );
+    
+    ?>
+    <div style="width: 100%">
+        <ul id="frame" class="fade" style="background-color: #000; height: 250px; padding-left: 0px; margin: 0; overflow: hidden;">
 
-    <div style="width: 50%">
-
-        <ul id="frame" class="fade" style="background-color: #000; padding-left: 0px; margin: 0;overflow:hidden;">
-
-            <li id = "forest" class="" style="background-image: url('images/forest.jpg'); display: block; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
+            <!-- Each li should have the animation specified not the ul -->
+            <?php foreach($slides as $slide){ ?>
+            <li id = "<?php echo $slide['id']; ?>" class="<?php echo $slide['animation']; ?>" style="background-image: url('<?php echo $slide['slideImage']; ?>'); display: block; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
                 <div>
-                    <h1 class="headline">Forest</h1>
+                    <!-- need to start setting some basic constraitns on the elements to ensure they always render as good as possible under minimal settings. -->
+                    <h1 class="headline"><?php echo $slide['headline']; ?></h1>
+                    <?php echo $slide['content']; ?>
                 </div>
             </li>
-            <li id="beach" class="" style="background-image: url('images/beach.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
-                <div>
-                    <h1 class="headline">Beach</h1>
-                </div>
-            </li>
-            <li id="sea" class="" style="background-image: url('images/sea.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
-                <div>
-                    <h1 class="headline">Sea</h1>
-                </div>
-            </li>
-            <li id="abstract1" class="" style="background-image: url('images/abstract1.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
-                <div>
-                    <h1 class="headline">Abstract</h1>
-                </div>
-            </li>
-            <li id="vacation" class="" style="background-image: url('images/vacation.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
-                <div>
-                    <h1 class="headline">Vacation</h1>
-                </div>
-            </li>
+            <?php } ?>
         </ul>
     </div>
 </body>
