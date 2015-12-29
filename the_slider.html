@@ -79,8 +79,15 @@
             setTimeout(loop,2000,slides,i,count);
            
             function loop(slides,i,count) {
-                var j= 0;
+                var j = i + 1;
+                if(j == count){ j = 0; }
+                if(i == count ){
+                    i = 0;
+                    j = 1;
+                    console.log("count: "+count);
+                }
                 current = slides[i];
+
                 var headlines = $('#frame').find('.headline');
                 if(i==(count-1)){
                         
@@ -100,9 +107,10 @@
                 $(headlines[i]).css("left", "10px");
                 setHeadline(headlines[i],i);
                 
-                //
 
-                setTimeout(loop,5000,slides,i,count);
+                //
+                
+                setTimeout(loop,5000,slides,j,count);
                 }
 
                 function setHeadline(headline,i) {
@@ -111,6 +119,7 @@
                         console.log("In setHeadline function.  Left position: ", + $(headlines).position().left);
                         //$(headlines[i]).css("left","200px");
                         //console.log("i equals: "+i);
+
                         //if(i==3){ i=0; $(headline).position().left=0;}
                         frame = $("#frame").width();
                         headline_length = h.width();
@@ -125,6 +134,7 @@
                             $(headline).position().left=0;
                             //console.log("Left: " +$(headline).css("left"));
                         //$(headline).css("left", "10px");
+
                 }
            
         });
@@ -132,7 +142,11 @@
 </head>
 <body>
     <div style="width: 50%">
+<<<<<<< HEAD
         <ul id="frame" class="fade" style="background-color: #000; height: 225px; padding-left: 0px; margin: 0; overflow: hidden;">
+=======
+        <ul id="frame" class="fade" style="background-color: #000; height: 225px; padding-left: 0px; margin: 0;overflow:hidden;">
+>>>>>>> 900144f9be408c0cf94e4e3f190d0c3b32580e85
             
             <li id = "forest" class="" style="background-image: url('images/forest.jpg'); display: block; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
                 <div>
