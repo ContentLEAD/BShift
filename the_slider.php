@@ -70,6 +70,7 @@
         $(document).ready(function() {
             i = 0;
             var slides = $('#frame').find('li');
+            var myslides = getinfo(slides);
             var headlines = $('#frame').find('.headline');
             var hl = $(headlines[i]);
             var hl_width = hl.width();
@@ -82,33 +83,22 @@
             setTimeout(loop,2000,slides,i,count);
            
             //List out all the information you need to get for each slide pleasae
-            //
-            //
-            //
-            //
-            //
-            //
-            //
-            //
-            //
-            //
-            //
-            //
-            //
+            // type of slide animation
+            // background color or image 
+            // height
+            // width
+            // 
             //
             // Now Build a function whose only job is to get all that information and store it in an array. return the finished array.
-            //
-            //
-            //
-            //
-            //
-            //
-            //
-            //
-            //
-            //
-            //
-            //
+            // function getInfo(slides){
+            //  var info = new array();
+            // foreach(slides as slide){
+            //      var s = new array();
+            //      s['animate'] = 'fade';
+            //      info.add(info, s);
+            //  }
+            //     return info;
+            // }
             //
             
             function loop(slides,i,count) {
@@ -188,11 +178,12 @@
         $slides = array();
         $slides[] = array(
             'id'    => 'forest',
+            'animation' => 'animate-slide-fade',
             'class' => '',
             'slideImage'    => 'images/forest.jpg',
             'headline'  => 'Forest',
             'styles'    => '',
-            'content'   => '<p>Etiam sit amet orci eget eros faucibus tincidunt. Vestibulum purus quam, scelerisque ut, mollis sed, nonummy id, metus. Phasellus blandit leo ut odio. Praesent blandit laoreet nibh. Nunc interdum lacus sit amet orci.</p><p>Vestibulum rutrum, mi nec elementum vehicula, eros quam gravida nisl, id fringilla neque ante vel mi. Praesent ut ligula non mi varius sagittis. Praesent nonummy mi in odio. Vestibulum fringilla pede sit amet augue. In auctor lobortis lacus.</p>'
+            'content'   => '<h2>forest subheading</h2><p>Etiam sit amet orci eget eros faucibus tincidunt. Vestibulum purus quam, scelerisque ut, mollis sed, nonummy id, metus. Phasellus blandit leo ut odio. Praesent blandit laoreet nibh. Nunc interdum lacus sit amet orci.</p><p>Vestibulum rutrum, mi nec elementum vehicula, eros quam gravida nisl, id fringilla neque ante vel mi. Praesent ut ligula non mi varius sagittis. Praesent nonummy mi in odio. Vestibulum fringilla pede sit amet augue. In auctor lobortis lacus.</p>'
             );
         $slides[] = array(
             'id'    => 'beach',
@@ -202,37 +193,14 @@
             'styles'    => '',
             'content'   => ''
             );
-        $slides[] = array(
-            'id'    => 'sea',
-            'class' => '',
-            'slideImage'    => 'images/sea.jpg',
-            'headline'  => 'Sea',
-            'styles'    => '',
-            'content'   => ''
-            );
-        $slides[] = array(
-            'id'    => 'abstract1',
-            'class' => '',
-            'slideImage'    => 'images/abstract1.jpg',
-            'headline'  => 'Abstract',
-            'styles'    => '',
-            'content'   => ''
-            );
-        $slides[] = array(
-            'id'    => 'vacation',
-            'class' => '',
-            'slideImage'    => 'images/vacation.jpg',
-            'headline'  => 'Vacation',
-            'styles'    => '',
-            'content'   => ''
-            );
+    
     ?>
     <div style="width: 100%">
         <ul id="frame" class="fade" style="background-color: #000; height: 250px; padding-left: 0px; margin: 0; overflow: hidden;">
 
             <!-- Each li should have the animation specified not the ul -->
             <?php foreach($slides as $slide){ ?>
-            <li id = "<?php echo $slide['id']; ?>" class="<?php echo $slide['class']; ?>" style="background-image: url('<?php echo $slide['slideImage']; ?>'); display: block; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
+            <li id = "<?php echo $slide['id']; ?>" class="<?php echo $slide['animation']; ?>" style="background-image: url('<?php echo $slide['slideImage']; ?>'); display: block; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
                 <div>
                     <!-- need to start setting some basic constraitns on the elements to ensure they always render as good as possible under minimal settings. -->
                     <h1 class="headline"><?php echo $slide['headline']; ?></h1>
