@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <style>
+
     body {
         margin: 0;
         background-color: #000;
@@ -35,6 +36,7 @@
             top: 225px; 
      }
      #frame {
+
             overflow: hidden;
             height: 245px; 
             width: auto;  
@@ -59,13 +61,16 @@
                 z-index: 1;
                 margin: auto;
                 }
+
         #frame {
+
                 overflow: hidden;
                 height: 145px; 
                 width: 100%;
                 
             }
     }
+
     </style>   
 
 
@@ -80,12 +85,15 @@
             var hl_width = hl.width();
             var frame_width = $('#frame').width();
             var x = (frame_width/2)-hl_width;
-            $(headlines[i]).css("left",x+"px")
+            //console.log(slides);
+            var myslides = getInfo(slides);
+            console.log(myslides);
+            $(headlines[i]).css("left",x+"px");
             //console.log($(headlines[i]).css('left'));
             var count = slides.length;
-            setTimeout(loop,2000,slides,i,count);
+            setTimeout(loop,2000,slides,i,count,myslides);
            
-            function loop(slides,i,count) {
+            function loop(slides,i,count,myslides) {
                 var j = i + 1;
                 if(j == count){ j = 0; }
                 if(i == count ){
@@ -100,52 +108,84 @@
                 var currentslideClasses = $(slides[i]).attr('class');
                 //now split the string by spaces and find the string starting with "animate-slide" split the string by '-' and grab the 3rd parameter.  more work but makes it more flexable. as now you have a complete list of the classes associated with the element for use later however you want them.
                 */
-            
+                
                 if(i==(count-1)){
                         
-                        console.log("count: "+count);
+                        //console.log("count: "+count);
                         //console.log($(slides[i]).attr('id'));
                         i=count-1;
                         //$(slides[i]).toggle(animate);
-                        $(slides[i]).toggle($(slides[i]).attr('class'));
+                        $(slides[i]).toggle(myslides[i]['effect']);
                         i = j;
-                        $(slides[0]).toggle($(slides[0]).attr('class'));
+                        $(slides[0]).toggle(myslides[0]['effect']);
                         
                     }  else{             
-                        $(slides[i]).toggle($(slides[i]).attr('class'));
+                        $(slides[i]).toggle(myslides[i]['effect']);
                         i++;
-                        $(slides[i]).toggle($(slides[i]).attr('class'));
+                        $(slides[i]).toggle(myslides[i]['effect']);
                     }
                 
                 $(headlines[i]).css("left", "10px");
                 setHeadline(headlines[i],i);
                 
+
                 //
-                
-                setTimeout(loop,5000,slides,j,count);
+                var duration = myslides[i]['duration'];
+                setTimeout(loop,duration,slides,j,count,myslides);
                 }
+
+                function getInfo(slides){
+                    var info= [];
+                    var infidel = [];
+                    infidel.push('yes','no');
+                    var new_info = [];
+                    //info.push(500,1000,1500);
+                    //new_info.push(info,infidel);
+                    //console.log(new_info);
+                    var s = new Array();
+                    $(slides).each( function(index) {
+                        
+                        
+                        s.push({
+                            "class" : $(this).attr('class'),
+                            "id" : $(this).attr('id'),
+                            "duration" : $(this).attr('data-speed'), 
+                            "index" : index,
+                            "effect" : $(this).attr('data-effect'),
+                            "rotation" : $(this).attr('data-rotate') 
+
+                        });
+                        
+                        //console.log(s[index]);
+                        
+                        });
+                    return s;
+                }
+
                 function setHeadline(headline,i) {
                         var h = $(headline);
-                        var pixels = 20;
-                        console.log("In setHeadline function.  Left position: ", + $(headlines).position().left);
+                        var pixels = 30;
+                        //console.log("In setHeadline function.  Left position: ", + $(headlines).position().left);
                         //$(headlines[i]).css("left","200px");
                         //console.log("i equals: "+i);
+
                         //if(i==3){ i=0; $(headline).position().left=0;}
                     /* should be a global var gotten once and referenced here */
                     
                         frame = $("#frame").width();
                         headline_length = h.width();
                         lim = (frame/2)-headline_length;
-                        console.log("Just outside setHeadline function: ", + lim);
+                        //console.log("Just outside setHeadline function: ", + lim);
                         if($(headline).position().left<lim) {
                                 //console.log("In setHeadline function: ", + win);
                                 $(headline).css("left","+="+pixels+"px");
                                 //console.log($(headline).position().left);
-                                setTimeout(setHeadline,300,headline,i);
+                                setTimeout(setHeadline,100,headline,i);
                             }
                             $(headline).position().left=0;
                             //console.log("Left: " +$(headline).css("left"));
                         //$(headline).css("left", "10px");
+
                 }
            
         });
@@ -158,27 +198,27 @@
 
         <ul id="frame" class="fade" style="background-color: #000; padding-left: 0px; margin: 0;overflow:hidden;">
 
-            <li id = "forest" class="" style="background-image: url('images/forest.jpg'); display: block; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
+            <li id = "forest" data-speed = "1700" class="fade dark" data-rotate = "90" data-effect = "display" style="background-image: url('images/forest.jpg'); display: block; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
                 <div>
                     <h1 class="headline">Forest</h1>
                 </div>
             </li>
-            <li id="beach" class="" style="background-image: url('images/beach.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
+            <li id="beach" class="slide light" data-speed = "1300" data-rotate = "180" data-effect = "slide" style="background-image: url('images/beach.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
                 <div>
                     <h1 class="headline">Beach</h1>
                 </div>
             </li>
-            <li id="sea" class="" style="background-image: url('images/sea.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
+            <li id="sea" class="pixel medium" data-speed = "1300" data-rotate = 45 data-effect = "slow" style="background-image: url('images/sea.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
                 <div>
                     <h1 class="headline">Sea</h1>
                 </div>
             </li>
-            <li id="abstract1" class="" style="background-image: url('images/abstract1.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
+            <li id="abstract1" class="none none" data-speed = "1300" data-rotate = 0 data-effect = "fade" style="background-image: url('images/abstract1.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
                 <div>
                     <h1 class="headline">Abstract</h1>
                 </div>
             </li>
-            <li id="vacation" class="" style="background-image: url('images/vacation.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
+            <li id="vacation" class="fade dark" data-speed = "1400" data-rotate = 180 data-effect = "1400,swing" style="background-image: url('images/vacation.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
                 <div>
                     <h1 class="headline">Vacation</h1>
                 </div>
