@@ -77,9 +77,30 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script async>
         /* need an event listener for screen resizing or better css styles to account for banner ratios */
+        $.fn.extend({
+                    getInfoalt: function(){
+                        var s = new Array();
+                        
+                        this.each( function(index) {
+                            s.push({
+                                "class" : $(this).attr('class'),
+                                "id" : $(this).attr('id'),
+                                "duration" : $(this).attr('data-speed'), 
+                                "index" : index,
+                                "effect" : $(this).attr('data-effect'),
+                                "rotation" : $(this).attr('data-rotate') 
+                            });
+                        });
+                        
+                    }
+                });
         $(document).ready(function() {
             i = 0;
             var slides = $('#frame').find('li');
+            var slidesInfo = $('#frame').find('li').getInfoalt();
+            console.log(slidesInfo);
+            //var a = 0;
+            //slides.bshift(a);
             var headlines = $('#frame').find('.headline');
             var hl = $(headlines[i]);
             var hl_width = hl.width();
@@ -92,7 +113,23 @@
             //console.log($(headlines[i]).css('left'));
             var count = slides.length;
             setTimeout(loop,2000,slides,i,count,myslides);
-           
+            $.fn.extend(
+                {
+                    bshift: function(i){
+                        var info = this.getInfoalt();
+                        
+                    }
+                }
+            );
+            $.fn.extend(
+                {
+                    banimate: function(currentSlide, nextSlide){
+                        currentSlide.toggle(currentSlide.effect);
+                        nextSlide.toggle(nextSlide.effect);
+                    }
+                }
+            );
+            
             function loop(slides,i,count,myslides) {
                 var j = i + 1;
                 if(j == count){ j = 0; }
@@ -126,14 +163,12 @@
                     }
                 
                 $(headlines[i]).css("left", "10px");
-                setHeadline(headlines[i],i);
-                
 
                 //
                 var duration = myslides[i]['duration'];
                 setTimeout(loop,duration,slides,j,count,myslides);
                 }
-
+                
                 function getInfo(slides){
                     var info= [];
                     var infidel = [];
@@ -153,72 +188,43 @@
                             "index" : index,
                             "effect" : $(this).attr('data-effect'),
                             "rotation" : $(this).attr('data-rotate') 
-
                         });
-                        
-                        //console.log(s[index]);
-                        
-                        });
+                    });
                     return s;
                 }
-
-                function setHeadline(headline,i) {
-                        var h = $(headline);
-                        var pixels = 30;
-                        //console.log("In setHeadline function.  Left position: ", + $(headlines).position().left);
-                        //$(headlines[i]).css("left","200px");
-                        //console.log("i equals: "+i);
-
-                        //if(i==3){ i=0; $(headline).position().left=0;}
-                    /* should be a global var gotten once and referenced here */
-                    
-                        frame = $("#frame").width();
-                        headline_length = h.width();
-                        lim = (frame/2)-headline_length;
-                        //console.log("Just outside setHeadline function: ", + lim);
-                        if($(headline).position().left<lim) {
-                                //console.log("In setHeadline function: ", + win);
-                                $(headline).css("left","+="+pixels+"px");
-                                //console.log($(headline).position().left);
-                                setTimeout(setHeadline,100,headline,i);
-                            }
-                            $(headline).position().left=0;
-                            //console.log("Left: " +$(headline).css("left"));
-                        //$(headline).css("left", "10px");
-
-                }
-           
+       
         });
     </script>
 </head>
     <!-- Need to now add in the navigation for moving to the next slide or previous slide.  1. arrow navigation on the left and the right. 2. bubble navigation on the bottom  -->
 <body>
 
-    <div style="width: 50%">
+    <div style="width: 100%">
 
         <ul id="frame" class="fade" style="background-color: #000; padding-left: 0px; margin: 0;overflow:hidden;">
 
-            <li id = "forest" data-speed = "1700" class="fade dark" data-rotate = "90" data-effect = "display" style="background-image: url('images/forest.jpg'); display: block; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
+            <li id = "forest" data-speed = "5000" class="fade dark" data-rotate = "90" data-effect = "display" style="background-image: url('images/forest.jpg'); display: block; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
                 <div>
                     <h1 class="headline">Forest</h1>
+                    <p>lajsdlfkajsdof uasoidf uasiodf uasoidfuasiodfuasiod;u fyaoisd fuoisdh foiasdhfioasd fhaosiudfhoiasdfhoisd foaisu dfioasdufoiasufoiasudoifsa udoifusadfoiuasdofi psaudfiopasud</p>
                 </div>
             </li>
-            <li id="beach" class="slide light" data-speed = "1300" data-rotate = "180" data-effect = "slide" style="background-image: url('images/beach.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
+            <li id="beach" class="slide light" data-speed = "5000" data-rotate = "180" data-effect = "slide" style="background-image: url('images/beach.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
                 <div>
                     <h1 class="headline">Beach</h1>
                 </div>
             </li>
-            <li id="sea" class="pixel medium" data-speed = "1300" data-rotate = 45 data-effect = "slow" style="background-image: url('images/sea.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
+            <li id="sea" class="pixel medium" data-speed = "5000" data-rotate ="45" data-effect = "slow" style="background-image: url('images/sea.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
                 <div>
                     <h1 class="headline">Sea</h1>
                 </div>
             </li>
-            <li id="abstract1" class="none none" data-speed = "1300" data-rotate = 0 data-effect = "fade" style="background-image: url('images/abstract1.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
+            <li id="abstract1" class="none none" data-speed = "5000" data-rotate = "0" data-effect = "fade" style="background-image: url('images/abstract1.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
                 <div>
                     <h1 class="headline">Abstract</h1>
                 </div>
             </li>
-            <li id="vacation" class="fade dark" data-speed = "1400" data-rotate = 180 data-effect = "1400,swing" style="background-image: url('images/vacation.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
+            <li id="vacation" class="fade dark" data-speed = "5000" data-rotate = "180" data-effect = "1400,swing" style="background-image: url('images/vacation.jpg'); display: none; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
                 <div>
                     <h1 class="headline">Vacation</h1>
                 </div>
