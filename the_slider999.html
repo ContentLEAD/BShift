@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <style>
+
     body {
         margin: 0;
         background-color: #000;
@@ -19,10 +20,11 @@
                 font-weight: 600;
                 font-style: italic;
                 vertical-align: bottom;
-                display: inline-block;
-                top: 70px;            
+                display: block;
+                           
                 position: relative;
                 z-index: 1;
+                text-align: center;
             }
      
      #banner-footer {
@@ -35,6 +37,7 @@
             top: 225px; 
      }
      #frame {
+
             overflow: hidden;
             height: 245px; 
             width: auto;  
@@ -52,20 +55,22 @@
                 font-weight: 600;
                 font-style: italic;
                 vertical-align: bottom;
-                display: inline-block;
-                top: 70px;
-                left: 150px;
-                position: absolute;
+                display: block;
+                
+                position: relative;
                 z-index: 1;
                 margin: auto;
                 }
+
         #frame {
+
                 overflow: hidden;
                 height: 145px; 
                 width: 100%;
                 
             }
     }
+
     </style>   
 
 
@@ -75,8 +80,8 @@
         $.fn.extend({
                     getInfoalt: function(){
                         var s = new Array();
-                        
                         this.each( function(index) {
+                            
                             s.push({
                                 "class" : $(this).attr('class'),
                                 "id" : $(this).attr('id'),
@@ -85,53 +90,73 @@
                                 "effect" : $(this).attr('data-effect'),
                                 "rotation" : $(this).attr('data-rotate') 
                             });
+                                                  
                         });
                         
+                        return s;
                     }
                 });
+        $.fn.extend(
+                {
+                    bshift: function(i){
+                        
+
+                        info = this.getInfoalt();
+                        
+                        return info;
+                        //console.log(info);
+                    }
+                }
+            );
+        $.fn.extend(
+                {
+                    banimate: function(index){
+                        
+                        console.log("in banimate");
+                        
+                        var j=index++;
+                        currentSlide=$(this)[index];
+                        nextSlide = $(this)[j];
+                        $(currentSlide).toggle(5000);
+                        $(nextSlide).toggle(5000);
+                                
+                    }
+                }
+            );
+
         $(document).ready(function() {
             i = 0;
-            var slides = $('#frame').find('li');
-            var slidesInfo = $('#frame').find('li').getInfoalt();
-            console.log(slidesInfo);
-            //var a = 0;
-            //slides.bshift(a);
+            slides = $('#frame').find('li');
+            //var slidesInfo = $('#frame').find('li').getInfoalt();
+            //console.log(slidesInfo);
+            var a = 0;
+            var list = slides.bshift(a);
+            console.log(list);
+            //slides.banimate(a);
+
+            //console.log(list);
             var headlines = $('#frame').find('.headline');
             var hl = $(headlines[i]);
             var hl_width = hl.width();
             var frame_width = $('#frame').width();
             var x = (frame_width/2)-hl_width;
             //console.log(slides);
-            var myslides = getInfo(slides);
-            console.log(myslides);
-            $(headlines[i]).css("left",x+"px");
+            //var myslides = getInfo(slides);
+            //console.log(myslides);
+            //$(headlines[i]).css("left",x+"px");
             //console.log($(headlines[i]).css('left'));
             var count = slides.length;
-            setTimeout(loop,2000,slides,i,count,myslides);
-            $.fn.extend(
-                {
-                    bshift: function(i){
-                        var info = this.getInfoalt();
-                        
-                    }
-                }
-            );
-            $.fn.extend(
-                {
-                    banimate: function(currentSlide, nextSlide){
-                        currentSlide.toggle(currentSlide.effect);
-                        nextSlide.toggle(nextSlide.effect);
-                    }
-                }
-            );
+            //setTimeout(loop,2000,slides,i,count,myslides);
             
-            function loop(slides,i,count,myslides) {
+            
+            
+            /*function loop(slides,i,count,myslides) {
                 var j = i + 1;
                 if(j == count){ j = 0; }
                 if(i == count ){
                     i = 0;
                     j = 1;
-                    console.log("count: "+count);
+                    //console.log("count: "+count);
                 }
                 //why are you not using this var?
                 current = slides[i];
@@ -141,7 +166,7 @@
                 //now split the string by spaces and find the string starting with "animate-slide" split the string by '-' and grab the 3rd parameter.  more work but makes it more flexable. as now you have a complete list of the classes associated with the element for use later however you want them.
                 */
                 
-                if(i==(count-1)){
+                /*if(i==(count-1)){
                         
                         //console.log("count: "+count);
                         //console.log($(slides[i]).attr('id'));
@@ -158,12 +183,13 @@
                     }
                 
                 $(headlines[i]).css("left", "10px");
+
                 //
                 var duration = myslides[i]['duration'];
                 setTimeout(loop,duration,slides,j,count,myslides);
-                }
+                }*/
                 
-                function getInfo(slides){
+               /* function getInfo(slides){
                     var info= [];
                     var infidel = [];
                     infidel.push('yes','no');
@@ -185,7 +211,7 @@
                         });
                     });
                     return s;
-                }
+                }*/
        
         });
     </script>
@@ -193,7 +219,7 @@
     <!-- Need to now add in the navigation for moving to the next slide or previous slide.  1. arrow navigation on the left and the right. 2. bubble navigation on the bottom  -->
 <body>
 
-    <div style="width: 100%">
+    <div style="width: 100%;margin: 10px;">
 
         <ul id="frame" class="fade" style="background-color: #000; padding-left: 0px; margin: 0;overflow:hidden;">
 
