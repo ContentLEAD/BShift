@@ -83,6 +83,7 @@
                         this.each( function(index) {
                             
                             s.push({
+                                "object" : $(this),
                                 "class" : $(this).attr('class'),
                                 "id" : $(this).attr('id'),
                                 "duration" : $(this).attr('data-speed'), 
@@ -98,31 +99,34 @@
                 });
         $.fn.extend(
                 {
+                    banimate: function(index){
+                        
+                        
+                        
+                        var j=index++;
+                        console.log(j);
+                        currentSlide=$(this)[index];
+                        nextSlide = $(this)[j];
+                        $(currentSlide).toggle(info[index]['duration']);
+                        $(nextSlide).toggle(info[j]['duration']);
+                        setTimeout(function(){this.banimate(j)},5000);        
+                    }
+                }
+                );
+
+        $.fn.extend(
+                {
                     bshift: function(i){
                         
 
                         info = this.getInfoalt();
-                        
-                        return info;
+                        this.banimate(i);
+                        //return info;
                         //console.log(info);
                     }
                 }
             );
-        $.fn.extend(
-                {
-                    banimate: function(index){
-                        
-                        console.log("in banimate");
-                        
-                        var j=index++;
-                        currentSlide=$(this)[index];
-                        nextSlide = $(this)[j];
-                        $(currentSlide).toggle(5000);
-                        $(nextSlide).toggle(5000);
-                                
-                    }
-                }
-            );
+
 
         $(document).ready(function() {
             i = 0;
@@ -130,8 +134,8 @@
             //var slidesInfo = $('#frame').find('li').getInfoalt();
             //console.log(slidesInfo);
             var a = 0;
-            var list = slides.bshift(a);
-            console.log(list);
+            slides.bshift(a);
+            //console.log(list);
             //slides.banimate(a);
 
             //console.log(list);
