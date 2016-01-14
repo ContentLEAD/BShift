@@ -1,0 +1,66 @@
+body {
+        margin: 0;
+        background-color: #000;
+    }
+    
+    .item1 {
+        background-color: yellow;
+    }
+    
+    .headline {
+                font-size: 34px;
+                color: #FFF;
+                font-family: Helvetica;
+                font-weight: 600;
+                font-style: italic;
+                vertical-align: bottom;
+                display: block;
+                           
+                position: relative;
+                z-index: 1;
+                text-align: center;
+            }
+     
+     #banner-footer {
+            background-color: blue;
+            height: 22%;
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 25px;
+            top: 225px; 
+     }
+     #frame {
+
+            overflow: hidden;
+            height: 245px; 
+            width: auto;  
+     }
+     @media (max-width:768px) {
+            #frame {
+                height: 195px;
+            }
+     }
+     @media (max-width:480px) {
+            .headline {
+                font-size: 34px;
+                color: #FFF;
+                font-family: Helvetica;
+                font-weight: 600;
+                font-style: italic;
+                vertical-align: bottom;
+                display: block;
+                
+                position: relative;
+                z-index: 1;
+                margin: auto;
+                }
+
+        #frame {
+
+                overflow: hidden;
+                height: 145px; 
+                width: 100%;
+                
+            }
+    }
