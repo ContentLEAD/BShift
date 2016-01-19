@@ -22,37 +22,42 @@
                 {
                     banimate: function(index){
                         
+                        var that = this;
+                        //console.log(that);
+                        currentSlide = $(that[index].object);
+                        index=index+1;
+                        //console.log(that[index].duration);
                         
-                        
-                        var j=0;
-                        console.log(index);
-                        currentSlide=$(this);
                         if(index==slidesLength){
                             console.log("Reached end "+index);
                             index=0;
-                            nextSlide=(this.context);
+                            nextSlide=(that[0].object);
+
                         } else {
                         nextSlide=$(currentSlide).next();
                         }
-                        $(currentSlide).toggle();
-                        $(nextSlide).toggle();
-                        index++;
-                        console.log(currentSlide);
-                        setTimeout(function(){$(nextSlide).banimate(index)},5000);        
+                        //console.log(that);
+                        $(nextSlide).toggle(that[index].effect);
+                        $(currentSlide).toggle(that[index].effect);
+                        
+                                            
+                        setTimeout(function(){ that.banimate(index)},that[index].duration);        
                     }
                 }
                 );
 
         $.fn.extend(
                 {
-                    bshift: function(i){
+                    bshift: function(){
                         
                         //console.log(this[0]);
                         info = this.getInfoalt();
-                        $(this[0]).delay(5000).banimate(1);
+                        //console.log(info[0].object);
+                        index = 0;
+                        $(info).banimate(0);
                         //setTimeout($(this[0]).banimate(0),5000);
                         //return info;
-                        //console.log(info);
+                        
                     }
                 }
             );
@@ -60,12 +65,13 @@
 
         $(document).ready(function() {
             i = 0;
+            
             slides = $('#frame').find('li');
             slidesLength = slides.length;
             //var slidesInfo = $('#frame').find('li').getInfoalt();
-            //console.log(slidesInfo);
+            
             var a = 0;
-            setTimeout(function(){slides.bshift(a)},5000);
+            setTimeout(function(){slides.bshift()},1000);
         
         
            

@@ -12,7 +12,7 @@
         $slides = array();
         $slides[] = array(
             'id'    => 'forest',
-            'effect' => 'animate-slide-fade',
+            'effect' => 'fade',
             'class' => 'fade',
             'slideImage'    => 'images/forest.jpg',
             'headline'  => 'Forest',
@@ -24,8 +24,8 @@
             );
         $slides[] = array(
             'id'    => 'beach',
-            'effect'=> 'slide',
-            'class' => '',
+            'effect'=> 'slow',
+            'class' => 'die',
             'slideImage'    => 'images/beach.jpg',
             'headline'  => 'Beach',
             'rotate'    => '0',
