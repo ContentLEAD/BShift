@@ -1,4 +1,5 @@
  $.fn.extend({
+
                     getInfoalt: function(){
                         var s = new Array();
                         this.each( function(index) {
@@ -77,3 +78,4 @@
            
        
         });
+
