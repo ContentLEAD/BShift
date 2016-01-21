@@ -52,7 +52,7 @@
                         
                         //console.log(this[0]);
                         info = this.getInfoalt();
-                        //console.log(info[0].object);
+                        console.log(info[0].object);
                         index = 0;
                         $(info).banimate(0);
                         //setTimeout($(this[0]).banimate(0),5000);

@@ -73,9 +73,9 @@
             <!-- Each li should have the animation specified not the ul -->
             <?php foreach($slides as $slide){ ?>
             <li id="<?php echo $slide['id']; ?>" class="<?php echo $slide['class']; ?>" data-speed="<?php echo $slide['delay']; ?>" data-rotate="<?php echo $slide['rotate']; ?>" data-effect="<?php echo $slide['effect']; ?>" style="background-image: url('<?php echo $slide['slideImage']; ?>'); display: <?php echo $slide['display']; ?>; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
-                <div>
+                <div class="headline-chamber">
                     <!-- need to start setting some basic constraitns on the elements to ensure they always render as good as possible under minimal settings. -->
-                    <h1 class="headline"><?php echo $slide['headline']; ?></h1>
+                    <h1 class="headline" ><?php echo $slide['headline']; ?></h1>
                     <?php echo $slide['content']; ?>
                 </div>
             </li>

@@ -20,6 +20,10 @@ body {
                 z-index: 1;
                 text-align: center;
             }
+    .headline-chamber {
+        height: 100%;
+        position: relative;
+    }
      
      #banner-footer {
             background-color: blue;
