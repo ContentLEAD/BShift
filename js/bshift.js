@@ -37,9 +37,21 @@
                         } else {
                         nextSlide=$(currentSlide).next();
                         }
+
                         //console.log(that);
-                        $(nextSlide).toggle(that[index].effect);
-                        $(currentSlide).toggle(that[index].effect);
+                        switch(that[index].effect) {
+                                case 'slide':
+                                    $(nextSlide).slideToggle();
+                                    $(currentSlide).slideToggle();
+                                    break;
+                                case 'fade':
+                                    $(nextSlide).fadeIn();
+                                    $(currentSlide).fadeOut();
+                                    break;
+                                default:
+                                    $(nextSlide).toggle();
+                                    $(currentSlide).toggle();
+                                }
                         
                                             
                         setTimeout(function(){ that.banimate(index)},that[index].duration);        

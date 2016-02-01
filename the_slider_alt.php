@@ -24,7 +24,7 @@
             );
         $slides[] = array(
             'id'    => 'beach',
-            'effect'=> 'slow',
+            'effect'=> 'flip',
             'class' => 'die',
             'slideImage'    => 'images/beach.jpg',
             'headline'  => 'Beach',
