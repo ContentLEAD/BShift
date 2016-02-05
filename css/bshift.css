@@ -6,23 +6,28 @@ body {
     .item1 {
         background-color: yellow;
     }
+    ul li p {   padding-left: 65px;
+                padding-right: 65px;
+    }
+    p {
+            color: #FFF;
+        }
     
-    .headline {
+    h1 {
                 font-size: 34px;
                 color: #FFF;
                 font-family: Helvetica;
                 font-weight: 600;
                 font-style: italic;
-                vertical-align: bottom;
-                display: block;
+                vertical-align: middle;
+                display: inline;
                            
                 position: relative;
                 z-index: 1;
                 text-align: center;
             }
     .headline-chamber {
-        height: 100%;
-        position: relative;
+        text-align: center;
     }
      
      #banner-footer {
@@ -38,7 +43,9 @@ body {
 
             overflow: hidden;
             height: 245px; 
-            width: auto;  
+            width: auto; 
+            margin: 10px;
+            padding: 0; 
      }
      @media (max-width:768px) {
             #frame {
@@ -57,14 +64,15 @@ body {
                 
                 position: relative;
                 z-index: 1;
-                margin: auto;
+                
                 }
 
         #frame {
 
                 overflow: hidden;
                 height: 145px; 
-                width: 100%;
+                
                 
             }
+
     }

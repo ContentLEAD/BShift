@@ -11,7 +11,8 @@
                                 "duration" : $(this).attr('data-speed'), 
                                 "index" : index,
                                 "effect" : $(this).attr('data-effect'),
-                                "rotation" : $(this).attr('data-rotate') 
+                                "rotation" : $(this).attr('data-rotate'),
+                                "direction"  : $(this).attr('data-direction')
                             });
                                                   
                         });
@@ -30,7 +31,7 @@
                         //console.log(that[index].duration);
                         
                         if(index==slidesLength){
-                            console.log("Reached end "+index);
+                            //console.log("Reached end "+index);
                             index=0;
                             nextSlide=(that[0].object);
 
@@ -38,20 +39,41 @@
                         nextSlide=$(currentSlide).next();
                         }
 
-                        //console.log(that);
-                        switch(that[index].effect) {
-                                case 'slide':
-                                    $(nextSlide).slideToggle();
-                                    $(currentSlide).slideToggle();
+                        console.log(that[index].effect);
+                        var effect = that[index].effect;
+                        var direction = that[index].direction;
+                        var duration = that[index].duration;
+                        switch(effect) {
+                                case 'slide-vertical':
+                                    $(nextSlide).slideToggle(duration);
+                                    break;
+                                case 'slide-horizontal':
+                                    $(nextSlide).show('slide',{direction: direction}, duration);
                                     break;
                                 case 'fade':
-                                    $(nextSlide).fadeIn();
-                                    $(currentSlide).fadeOut();
+                                    $(nextSlide).fadeIn(duration);
                                     break;
                                 default:
-                                    $(nextSlide).toggle();
-                                    $(currentSlide).toggle();
-                                }
+                                    $(nextSlide).show(duration);
+                            }
+                        switch(effect) {
+                                case 'fade':
+                                    console.log('fading out');
+                                    $(currentSlide).fadeOut(duration);
+                                    break;
+                                case 'slide-vertical':
+                                    console.log('sliding out');
+                                    $(currentSlide).slideToggle(duration);
+                                    break;
+                                case 'slide-horizontal':
+                                    $(currentSlide).hide('slide',{direction: direction}, duration);
+                                    break;
+                                default:
+                                    console.log('toggling');
+                                    $(currentSlide).toggle(duration);
+                            }
+
+                        
                         
                                             
                         setTimeout(function(){ that.banimate(index)},that[index].duration);        
@@ -84,7 +106,7 @@
             //var slidesInfo = $('#frame').find('li').getInfoalt();
             
             var a = 0;
-            setTimeout(function(){slides.bshift()},1000);
+            setTimeout(function(){slides.bshift()},5000);
         
         
            

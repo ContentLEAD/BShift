@@ -77,7 +77,7 @@
             'class' => '',
             'slideImage'    => 'images/vacation.jpg',
             'rotate'    => '0',
-            'content'   => '',
+            'content'   => 'Vacation',
             'delay'     => '5000',
             'display'   =>'none' 
             );
@@ -91,10 +91,13 @@
             <?php 
             $first = true;
             foreach($slides as $slide){ ?>
-            <li id="<?php echo $slide['id']; ?>" class="<?php echo $slide['class']; ?>" data-speed="<?php echo $slide['delay']; ?>" data-rotate="<?php echo $slide['rotate']; ?>" data-effect="<?php echo $slide['effect']; ?>" style="background-image: url('<?php echo $slide['slideImage']; ?>'); display: <?php if($first){ echo "block";} else { echo "none"; } ?>; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
+            <li id="<?php echo $slide['id']; ?>" class="<?php echo $slide['class']; ?>" data-speed="<?php echo $slide['delay']; ?>" data-rotate="<?php echo $slide['rotate']; ?>" 
+                data-effect="<?php echo $slide['effect']; ?>" style="background-image: url('<?php echo $slide['slideImage']; ?>'); 
+                
+                background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
                 <div class="identifier">
                     <!-- need to start setting some basic constraitns on the elements to ensure they always render as good as possible under minimal settings. -->
-                    <?php echo $slide['content']; ?>
+                    <?php echo '<h2>'.$slide['content'].'</h2>'; ?>
                 </div>
             </li>
             <?php 
