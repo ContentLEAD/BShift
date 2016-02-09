@@ -8,6 +8,7 @@ body {
     }
     ul li p {   padding-left: 65px;
                 padding-right: 65px;
+        margin:0px !important;
     }
     p {
             color: #FFF;
@@ -42,14 +43,19 @@ body {
      #frame {
 
             overflow: hidden;
-            height: 245px; 
+            
             width: auto; 
-            margin: 10px;
+         /*There should not be any margin here 
+            margin: 10px;*/
+         
+         
+         
+         margin:0px;
             padding: 0; 
      }
      @media (max-width:768px) {
             #frame {
-                height: 195px;
+                height: 195px !important;
             }
      }
      @media (max-width:480px) {

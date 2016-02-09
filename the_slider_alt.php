@@ -11,11 +11,13 @@
     <!-- Need to now add in the navigation for moving to the next slide or previous slide.  1. arrow navigation on the left and the right. 2. bubble navigation on the bottom  -->
 <body>
     <?php
+    //eliminate headline.  
         $slides = array();
         $slides[] = array(
             'id'    => 'forest',
             'effect' => 'fade',
             'class' => 'fade',
+            'direction' => '',
             'slideImage'    => 'images/forest.jpg',
             'headline'  => '<h1>Forest</h1>',
             'rotate'    => '90',
@@ -28,6 +30,7 @@
             'id'    => 'beach',
             'effect'=> 'fade',
             'class' => 'die',
+            'direction' => '',
             'slideImage'    => 'images/beach.jpg',
             'headline'  => '<h1>Beach</h1>',
             'rotate'    => '0',
@@ -65,23 +68,25 @@
             'direction'=> 'right',
             'class' => '',
             'slideImage'    => 'images/vacation.jpg',
-            'headline'  => '<h1>Vacation</h1>',
             'rotate'    => '0',
-            'content'   => '<p>Enquire within regarding our extended stay packages</p><a href="">Gold Card Member login here</a>',
+            'headline'  => 'headline',
+            'content'   => '<h1>Vacation</h1><p>Enquire within regarding our extended stay packages</p><a href="">Gold Card Member login here</a>',
             'delay'     => '5000',
             'display'   =>'none' 
             );
     ?>
+    <!-- need to get names straight overall container should not have the same name as an inner div.-->
     <div style="width: 100%" class="headline-chamber">
-        <ul id="frame" style="background-color: #000; ">
+        <ul id="frame" class="normal-slider fullwidth-slider" style="background-color: #000;height: 250px; ">
 
             <!-- Each li should have the animation specified not the ul -->
             <?php foreach($slides as $slide){ ?>
             <li id="<?php echo $slide['id']; ?>" class="<?php echo $slide['class']; ?>" data-direction="<?php echo $slide['direction']; ?>" data-speed="<?php echo $slide['delay']; ?>" data-rotate="<?php echo $slide['rotate']; ?>" data-effect="<?php echo $slide['effect']; ?>" style="background-image: url('<?php echo $slide['slideImage']; ?>'); display: <?php echo $slide['display']; ?>; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
+                <!-- this div needs to be placed perfect center not center text.  contrain it so it is not 100% of the parent container add slight padding and center div horiz and vertic.  DO NOT center content -->
                 <div class="headline-chamber">
                     <!-- need to start setting some basic constraitns on the elements to ensure they always render as good as possible under minimal settings. -->
                     <!--<h1 class="headline" ><?php echo $slide['headline']; ?></h1>-->
-                    <?php echo $slide['headline']; ?>
+                    <?php //echo $slide['headline']; ?>
                     
                     <?php echo $slide['content']; ?>
                 </div>

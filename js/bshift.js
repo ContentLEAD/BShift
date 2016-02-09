@@ -23,8 +23,9 @@
         $.fn.extend(
                 {
                     banimate: function(index){
-                        
+                        //use _this instead of that.
                         var that = this;
+                        var _this = this;
                         //console.log(that);
                         currentSlide = $(that[index].object);
                         index=index+1;
@@ -46,16 +47,21 @@
                         switch(effect) {
                                 case 'slide-vertical':
                                     $(nextSlide).slideToggle(duration);
+                                 $(currentSlide).slideToggle(duration);
                                     break;
                                 case 'slide-horizontal':
                                     $(nextSlide).show('slide',{direction: direction}, duration);
+                                $(currentSlide).hide('slide',{direction: direction}, duration);
                                     break;
                                 case 'fade':
                                     $(nextSlide).fadeIn(duration);
+                                $(currentSlide).fadeOut(duration);
                                     break;
                                 default:
                                     $(nextSlide).show(duration);
+                                $(currentSlide).toggle(duration);
                             }
+                        /*
                         switch(effect) {
                                 case 'fade':
                                     console.log('fading out');
@@ -72,7 +78,7 @@
                                     console.log('toggling');
                                     $(currentSlide).toggle(duration);
                             }
-
+                                */
                         
                         
                                             
