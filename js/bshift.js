@@ -1,4 +1,6 @@
- $.fn.extend({
+        $.fn.extend({
+
+        
 
                     getInfoalt: function(){
                         var s = new Array();
@@ -20,9 +22,29 @@
                         return s;
                     }
                 });
+
+        $.fn.extend(
+                {
+                    bheight: function(){
+
+                        $(this).find('.headline-chamber2').css("visibility","visible");
+                        var element = $(this).find('.headline-chamber2');
+                        var height = $(element).height();
+                        console.log($(this).children().outerHeight());
+                        
+                        console.log("+"+ $(this).find('.headline-chamber2').css("visibility"));
+                        
+                        //$(this).find('.headline-chamber2').css('padding-top',adjust);
+
+                        
+                    }
+                }
+            );
+
         $.fn.extend(
                 {
                     banimate: function(index){
+
                         //use _this instead of that.
                         var that = this;
                         var _this = this;
@@ -40,18 +62,20 @@
                         nextSlide=$(currentSlide).next();
                         }
 
-                        console.log(that[index].effect);
+                        //console.log(that[index].effect);
                         var effect = that[index].effect;
                         var direction = that[index].direction;
                         var duration = that[index].duration;
                         switch(effect) {
                                 case 'slide-vertical':
-                                    $(nextSlide).slideToggle(duration);
+                                    $(nextSlide).bheight();
+                                    $(nextSlide).slideToggle(duration,function() { console.log($(this).find('.headline-chamber2').height())});
                                  $(currentSlide).slideToggle(duration);
                                     break;
                                 case 'slide-horizontal':
-                                    $(nextSlide).show('slide',{direction: direction}, duration);
-                                $(currentSlide).hide('slide',{direction: direction}, duration);
+                                    $(nextSlide).css({'display':'block','margin-left': '2000px'});
+                                    $(nextSlide).animate({marginLeft: "0px"},500);
+                                $(currentSlide).hide();
                                     break;
                                 case 'fade':
                                     $(nextSlide).fadeIn(duration);
@@ -93,7 +117,7 @@
                         
                         //console.log(this[0]);
                         info = this.getInfoalt();
-                        console.log(info[0].object);
+                        //console.log(info[0].object);
                         index = 0;
                         $(info).banimate(0);
                         //setTimeout($(this[0]).banimate(0),5000);
@@ -105,6 +129,7 @@
 
 
         $(document).ready(function() {
+            
             i = 0;
             
             slides = $('#frame').find('li');

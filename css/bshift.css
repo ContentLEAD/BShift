@@ -27,7 +27,9 @@ body {
                 z-index: 1;
                 text-align: center;
             }
-    .headline-chamber {
+    .headline-chamber2 {
+        width: 75%;
+        margin-left: 12.5%;
         text-align: center;
     }
      
