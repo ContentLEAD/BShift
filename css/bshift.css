@@ -8,7 +8,7 @@ body {
     }
     ul li p {   padding-left: 65px;
                 padding-right: 65px;
-        margin:0px !important;
+                margin:0px !important;
     }
     p {
             color: #FFF;
@@ -20,17 +20,19 @@ body {
                 font-family: Helvetica;
                 font-weight: 600;
                 font-style: italic;
-                vertical-align: middle;
+                
                 display: inline;
                            
                 position: relative;
                 z-index: 1;
                 text-align: center;
             }
-    .headline-chamber2 {
+    .b-shift-content {
         width: 75%;
         margin-left: 12.5%;
         text-align: center;
+        display: block;
+        position: relative;
     }
      
      #banner-footer {
@@ -42,45 +44,37 @@ body {
             height: 25px;
             top: 225px; 
      }
-     #frame {
+     .b-frame {
 
             overflow: hidden;
             
             width: auto; 
          /*There should not be any margin here 
-            margin: 10px;*/
-         
-         
-         
+            margin: 10px;*/     
          margin:0px;
             padding: 0; 
      }
+     .b-outer-frame {
+        width: 100%;
+     }
      @media (max-width:768px) {
-            #frame {
+            .b-frame {
                 height: 195px !important;
             }
      }
      @media (max-width:480px) {
-            .headline {
-                font-size: 34px;
-                color: #FFF;
-                font-family: Helvetica;
-                font-weight: 600;
-                font-style: italic;
-                vertical-align: bottom;
-                display: block;
-                
-                position: relative;
-                z-index: 1;
-                
-                }
+            
 
-        #frame {
+        .b-frame {
 
                 overflow: hidden;
                 height: 145px; 
                 
                 
             }
+        ul li p {
+            padding-left: 0;
+            padding-right: 0;
+        }
 
     }

@@ -27,12 +27,18 @@
                 {
                     bheight: function(){
 
-                        $(this).find('.headline-chamber2').css("visibility","visible");
-                        var element = $(this).find('.headline-chamber2');
-                        var height = $(element).height();
-                        console.log($(this).children().outerHeight());
                         
-                        console.log("+"+ $(this).find('.headline-chamber2').css("visibility"));
+                        var element = $(this).find('.b-shift-content');
+                        
+                        
+                        $(this).css({'position':'relative','visibility':'hidden', 'display':'block'});
+                        var outer_height = $(this).height();
+                        var inner_height = $(this).find('.b-shift-content').height();
+                        var adjust = (outer_height/2) - (inner_height/2);
+                        $(this).find('.b-shift-content').css('padding-top',+adjust+'px');
+                        //console.log($(this).height());
+                        //console.log("+"+ inner_height);
+                        $(this).css({'position':'relative','visibility':'visible', 'display':'none'});
                         
                         //$(this).find('.headline-chamber2').css('padding-top',adjust);
 
@@ -46,44 +52,46 @@
                     banimate: function(index){
 
                         //use _this instead of that.
-                        var that = this;
+                        //var that = this;
                         var _this = this;
                         //console.log(that);
-                        currentSlide = $(that[index].object);
+                        currentSlide = $(_this[index].object);
                         index=index+1;
                         //console.log(that[index].duration);
                         
                         if(index==slidesLength){
                             //console.log("Reached end "+index);
                             index=0;
-                            nextSlide=(that[0].object);
+                            nextSlide=(_this[0].object);
 
                         } else {
                         nextSlide=$(currentSlide).next();
                         }
 
                         //console.log(that[index].effect);
-                        var effect = that[index].effect;
-                        var direction = that[index].direction;
-                        var duration = that[index].duration;
+                        $(nextSlide).bheight();
+                        var effect = _this[index].effect;
+                        var direction = _this[index].direction;
+                        var duration = _this[index].duration;
                         switch(effect) {
                                 case 'slide-vertical':
-                                    $(nextSlide).bheight();
-                                    $(nextSlide).slideToggle(duration,function() { console.log($(this).find('.headline-chamber2').height())});
-                                 $(currentSlide).slideToggle(duration);
+                                    
+                                    
+                                    $(nextSlide).slideToggle(duration,function(){$(this).addClass('b-active');});
+                                 $(currentSlide).slideToggle(duration,function(){$(this).removeClass('b-active');});
                                     break;
                                 case 'slide-horizontal':
                                     $(nextSlide).css({'display':'block','margin-left': '2000px'});
-                                    $(nextSlide).animate({marginLeft: "0px"},500);
-                                $(currentSlide).hide();
+                                    $(nextSlide).animate({marginLeft: "0px"},500,function(){$(this).addClass('b-active');});
+                                $(currentSlide).hide(function(){$(this).removeClass('b-active');});
                                     break;
                                 case 'fade':
-                                    $(nextSlide).fadeIn(duration);
-                                $(currentSlide).fadeOut(duration);
+                                    $(nextSlide).fadeIn(duration,function(){$(this).addClass('b-active');});
+                                $(currentSlide).fadeOut(duration,function(){$(this).removeClass('b-active');});
                                     break;
                                 default:
-                                    $(nextSlide).show(duration);
-                                $(currentSlide).toggle(duration);
+                                    $(nextSlide).show(duration,function(){$(this).addClass('b-active');});
+                                $(currentSlide).toggle(duration,function(){$(this).removeClass('b-active');});
                             }
                         /*
                         switch(effect) {
@@ -106,7 +114,7 @@
                         
                         
                                             
-                        setTimeout(function(){ that.banimate(index)},that[index].duration);        
+                        setTimeout(function(){ _this.banimate(index)},_this[index].duration);        
                     }
                 }
                 );
@@ -132,13 +140,25 @@
             
             i = 0;
             
-            slides = $('#frame').find('li');
+            slides = $('.b-frame').find('li');
             slidesLength = slides.length;
             //var slidesInfo = $('#frame').find('li').getInfoalt();
             
             var a = 0;
             setTimeout(function(){slides.bshift()},5000);
-        
+
+             window.addEventListener("resize", function() {
+
+                        //$('.headline-chamber2:visible').css('padding-top','0px');
+                        var _this = $('.b-active');
+                        var new_outer_height = _this.height();
+                        var new_inner_height = _this.find('.b-shift-content').height();
+                        var new_adjust = (new_outer_height/2) - (new_inner_height/2);
+                        //console.log("resize: "+new_inner_height);
+                        console.log("resize "+new_adjust);
+                        _this.find('.b-shift-content').css('padding-top',new_adjust+'px');
+                        });       
+
         
            
        
