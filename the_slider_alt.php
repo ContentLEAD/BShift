@@ -29,16 +29,17 @@
             'rotate'    => '90',
             'content'   => '<p>Well-timbered location in the Northern Hemisphere.</p>',
             'delay'     =>'5000',
-            'display'   =>'block'
+            'display'   =>'block',
+            'state'     =>'published'
 
             );
         $slides[] = array(
             'id'    => 'beach',
-            'effect'=> 'fade',
+            'effect'=> 'rotate',
             'class' => 'spin',
             'slideImage'    => 'images/beach.jpg',
             'headline'  => '<h1>Beach</h1>',
-            'rotate'    => '0',
+            'rotate'    => '180',
             'content'   => '<p>
 When with a skilful hand Prometheus made
 A statue that the human form displayed,
@@ -49,7 +50,8 @@ She played her smile\'s enchantment upon man;
 By softness and alluring speech she gained
 The ascendant, and her master soon enchained;</p>',
             'delay'     => '5000',
-            'display'   =>'none' 
+            'display'   =>'none',
+            'state'     =>'published' 
             );
         $slides[] = array(
             'id'    => 'sea',
@@ -60,29 +62,32 @@ The ascendant, and her master soon enchained;</p>',
             'rotate'    => '0',
             'content'   => '<p>香港警方昨天表示，下午收到广东省公安厅警务联络科的复函，表示经了解，吕波、张志平及林荣基先生因涉嫌一名姓桂人士的案件，在内地从事违法犯罪活动，被内地有关部门依法采取刑事强制措施，现正接受审查。 </p>',
             'delay'     => '5000',
-            'display'   =>'none' 
+            'display'   =>'none',
+            'state'     =>'published' 
             );
         $slides[] = array(
             'id'    => 'abstract1',
-            'effect'=> 'slide-horizontal',
+            'effect'=> 'slide-right',
             'class' => 'light',
             'slideImage'    => 'images/abstract1.jpg',
             'headline'  => '<h1>Abstract</h1>',
             'rotate'    => '0',
-            'content'   => '<p>Princess, descended from that noble race Which still in danger held the imperial throne,Who human nature and thy sex dost grace, Whose virtues even thy foes are forced to own.</p>',
+            'content'   => '<p>descended from that noble race Which still in danger held the imperial throne,Who human nature and thy sex dost grace, Whose virtues even thy foes are forced to own.</p>',
             'delay'     => '10000',
-            'display'   =>'none' 
+            'display'   =>'none' ,
+            'state'     =>'published'
             );
         $slides[] = array(
             'id'    => 'vacation',
-            'effect'=> 'slide-horizontal',
+            'effect'=> 'slide-left',
             'class' => 'neutral',
             'slideImage'    => 'images/vacation.jpg',
             'rotate'    => '0',
             'headline'  => 'headline',
             'content'   => '<h1>Vacation</h1><p>Enquire within regarding our extended stay packages</p><a href="">Gold Card Member login here</a>',
             'delay'     => '10000',
-            'display'   =>'none' 
+            'display'   =>'none',
+            'state'     =>'published'
             );
     ?>
     <!-- need to get names straight overall container should not have the same name as an inner div.-->

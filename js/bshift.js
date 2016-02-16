@@ -73,25 +73,38 @@
                         var effect = _this[index].effect;
                         var direction = _this[index].direction;
                         var duration = _this[index].duration;
+                        var rotation =  _this[index].rotation;
+                        var degree = 45;
                         switch(effect) {
                                 case 'slide-vertical':
                                     
                                     
                                     $(nextSlide).slideToggle(duration,function(){$(this).addClass('b-active');});
-                                 $(currentSlide).slideToggle(duration,function(){$(this).removeClass('b-active');});
+                                    $(currentSlide).slideToggle(duration,function(){$(this).removeClass('b-active');});
                                     break;
-                                case 'slide-horizontal':
-                                    $(nextSlide).css({'display':'block','margin-left': '2000px'});
-                                    $(nextSlide).animate({marginLeft: "0px"},500,function(){$(this).addClass('b-active');});
-                                $(currentSlide).hide(function(){$(this).removeClass('b-active');});
+                                case 'slide-right':
+                                    $(nextSlide).css({'display':'block','right': '2000px'});
+                                    $(nextSlide).animate({"right" : "0px"},500,function(){$(this).addClass('b-active');});
+                                    $(currentSlide).hide(function(){$(this).removeClass('b-active');});
+                                    break;
+                                case 'slide-left':
+                                    $(nextSlide).css({'display':'block','left': '2000px'});
+                                    $(nextSlide).animate({"left" : "0px"},500,function(){$(this).addClass('b-active');});
+                                    $(currentSlide).hide(function(){$(this).removeClass('b-active');});
                                     break;
                                 case 'fade':
                                     $(nextSlide).fadeIn(duration,function(){$(this).addClass('b-active');});
-                                $(currentSlide).fadeOut(duration,function(){$(this).removeClass('b-active');});
+                                    $(currentSlide).fadeOut(duration,function(){$(this).removeClass('b-active');});
+                                    break;
+                                case 'rotate':
+                                    $(nextSlide).css({'-moz-transform': 'rotate(' + rotation + 'deg)'});
+                                    $(nextSlide).toggle(duration,function(){$(this).addClass('b-active');});
+                                    $(currentSlide).hide(function(){$(this).removeClass('b-active');});
                                     break;
                                 default:
                                     $(nextSlide).show(duration,function(){$(this).addClass('b-active');});
-                                $(currentSlide).toggle(duration,function(){$(this).removeClass('b-active');});
+                                    $(currentSlide).toggle(duration,function(){$(this).removeClass('b-active');});
+
                             }
                         /*
                         switch(effect) {
@@ -145,7 +158,8 @@
             //var slidesInfo = $('#frame').find('li').getInfoalt();
             
             var a = 0;
-            setTimeout(function(){slides.bshift()},5000);
+            console.log($(slides[0]).attr('data-speed'));
+            setTimeout(function(){slides.bshift()},$(slides[0]).attr('data-speed'));
 
              window.addEventListener("resize", function() {
 
