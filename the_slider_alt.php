@@ -18,9 +18,13 @@
     <!-- Need to now add in the navigation for moving to the next slide or previous slide.  1. arrow navigation on the left and the right. 2. bubble navigation on the bottom  -->
 <body>
     <?php
-    //eliminate headline.  
+    //eliminate headline.
+        $b_frame_height =  "225px";
+        $b_frame_width = "75%";
         $slides = array();
         $slides[] = array(
+            
+            'width' => 'full',            
             'id'    => 'forest',
             'effect' => 'fade',
             'class' => 'fade',
@@ -30,16 +34,19 @@
             'content'   => '<p>Well-timbered location in the Northern Hemisphere.</p>',
             'delay'     =>'5000',
             'display'   =>'block',
-            'state'     =>'published'
+            'state'     =>'published',
+            'opacity'   =>'0.5'
 
             );
         $slides[] = array(
+            
+            'width' => 'full',
             'id'    => 'beach',
             'effect'=> 'rotate',
             'class' => 'spin',
             'slideImage'    => 'images/beach.jpg',
             'headline'  => '<h1>Beach</h1>',
-            'rotate'    => '180',
+            'rotate'    => '5',
             'content'   => '<p>
 When with a skilful hand Prometheus made
 A statue that the human form displayed,
@@ -51,9 +58,12 @@ By softness and alluring speech she gained
 The ascendant, and her master soon enchained;</p>',
             'delay'     => '5000',
             'display'   =>'none',
-            'state'     =>'published' 
+            'state'     =>'published',
+            'opacity'   =>'0.9' 
             );
         $slides[] = array(
+            
+            'width' => 'full',
             'id'    => 'sea',
             'effect'=> 'slide-vertical',
             'class' => 'dark',
@@ -63,21 +73,27 @@ The ascendant, and her master soon enchained;</p>',
             'content'   => '<p>香港警方昨天表示，下午收到广东省公安厅警务联络科的复函，表示经了解，吕波、张志平及林荣基先生因涉嫌一名姓桂人士的案件，在内地从事违法犯罪活动，被内地有关部门依法采取刑事强制措施，现正接受审查。 </p>',
             'delay'     => '5000',
             'display'   =>'none',
-            'state'     =>'published' 
+            'state'     =>'published',
+            'opacity'   =>'0.5' 
             );
         $slides[] = array(
+            
+            'width' => 'full',
             'id'    => 'abstract1',
             'effect'=> 'slide-right',
             'class' => 'light',
             'slideImage'    => 'images/abstract1.jpg',
             'headline'  => '<h1>Abstract</h1>',
             'rotate'    => '0',
-            'content'   => '<p>descended from that noble race Which still in danger held the imperial throne,Who human nature and thy sex dost grace, Whose virtues even thy foes are forced to own.</p>',
+            'content'   => '<p>Some sample text here.....</p>',
             'delay'     => '10000',
             'display'   =>'none' ,
-            'state'     =>'published'
+            'state'     =>'published',
+            'opacity'   =>'1'
             );
         $slides[] = array(
+            
+            'width' => 'full',
             'id'    => 'vacation',
             'effect'=> 'slide-left',
             'class' => 'neutral',
@@ -87,16 +103,19 @@ The ascendant, and her master soon enchained;</p>',
             'content'   => '<h1>Vacation</h1><p>Enquire within regarding our extended stay packages</p><a href="">Gold Card Member login here</a>',
             'delay'     => '10000',
             'display'   =>'none',
-            'state'     =>'published'
+            'state'     =>'published',
+            'opacity'   =>'0.7'
             );
     ?>
     <!-- need to get names straight overall container should not have the same name as an inner div.-->
     <div class="b-outer-frame">
-        <ul class="b-frame normal-slider fullwidth-slider" style="background-color: #000;height: 250px; ">
+        <ul class="b-frame normal-slider fullwidth-slider" style="background-color: #000; height: <?php echo $b_frame_height; ?>; width: <?php echo $b_frame_width; ?>; ">
 
             <!-- Each li should have the animation specified not the ul -->
             <?php foreach($slides as $slide){ ?>
-            <li id="<?php echo $slide['id']; ?>" class="<?php echo $slide['class'].' '.$slide['effect']; ?>" data-speed="<?php echo $slide['delay']; ?>" data-rotate="<?php echo $slide['rotate']; ?>" data-effect="<?php echo $slide['effect']; ?>" style="background-image: url('<?php echo $slide['slideImage']; ?>'); display: <?php echo $slide['display']; ?>; background-size:cover; height: 100%;width: 100%; background-position: 0, 250px;">
+            <li id="<?php echo $slide['id']; ?>" class="<?php echo $slide['class'].' '.$slide['effect'].' '.$slide['width']; ?>" 
+                data-speed="<?php echo $slide['delay']; ?>" data-rotate="<?php echo $slide['rotate']; ?>" 
+                data-effect="<?php echo $slide['effect']; ?>" style="background-image: url('<?php echo $slide['slideImage']; ?>'); background-size:cover; height: 100%; width: 100%; background-position: 0, 250px; opacity: <?php echo $slide['opacity']; ?>;">
                 <!-- this div needs to be placed perfect center not center text.  contrain it so it is not 100% of the parent container add slight padding and center div horiz and vertic.  DO NOT center content -->
                 <div class="b-shift-content">
                     <!-- need to start setting some basic constraitns on the elements to ensure they always render as good as possible under minimal settings. -->
