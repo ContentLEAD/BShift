@@ -51,7 +51,7 @@ When first to know herself the fair began,
 She played her smile\'s enchantment upon man;
 By softness and alluring speech she gained
 The ascendant, and her master soon enchained;</p>',
-            'delay'     => '1500',
+            'delay'     => '5000',
             'display'   =>'none',
             'state'     =>'published',
             'opacity'   =>'0.9'
@@ -83,7 +83,7 @@ The ascendant, and her master soon enchained;</p>',
             'headline'  => '<h1>Abstract</h1>',
             'rotate'    => '0',
             'content'   => '<p>Some sample text here.....</p>',
-            'delay'     => '1000',
+            'delay'     => '5000',
             'display'   =>'none' ,
             'state'     =>'published',
             'opacity'   =>'1'
@@ -98,7 +98,7 @@ The ascendant, and her master soon enchained;</p>',
             'rotate'    => '0',
             'headline'  => 'headline',
             'content'   => '<h1>Vacation</h1><p>Enquire within regarding our extended stay packages</p><a href="">Gold Card Member login here</a>',
-            'delay'     => '10000',
+            'delay'     => '5000',
             'display'   =>'none',
             'state'     =>'published',
             'opacity'   =>'1'

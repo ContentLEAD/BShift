@@ -50,7 +50,9 @@
         $.fn.extend(
                 {
                     banimate: function(index){
-
+                        
+                        
+                        
                         //use _this instead of that.
                         //var that = this;
                         //console.log("index " + index);
@@ -65,7 +67,7 @@
                         } else {
                         nextSlide=$(currentSlide).next();
                         }
-
+                        console.log(_this);
                         //console.log(that[index].effect);
                         $(nextSlide).bheight();
                         var effect = _this[index].effect;
@@ -105,30 +107,37 @@
 
                             }               
                                             
-                        setTimeout(function(){ _this.banimate(index)},_this[index].duration);        
+                        bshiftcontroller = setTimeout(function(){ _this.banimate(index)},_this[index].duration);        
                     }
                 }
                 );        
         $.fn.extend(
                 {
                     bclick: function() {
-
+                        window.clearTimeout(bshiftcontroller);
                         //console.log(this);
                         var context = $(this).context;
                         var context_parent = context.parentElement;
                         var cp_parent = context_parent.parentElement;
                         var cp_parent_prev = $(cp_parent).prev();
-                        new_index = $(cp_parent).index();
+                        var new_index = $(cp_parent).index();
                         //console.log("index " + new_index);
                         $(cp_parent).toggle();
                         $(cp_parent_prev).toggle();
-                        setTimeout(function(){slides.banimate(new_index)},$(slides[new_index]).attr('data-speed'));
+                        var slid = $('.b-frame').find('li');
+                        console.log(slid);
+                        
+                        
+                        setTimeout(function(){
+                            slid.bshift(--new_index)
+                        },
+                            $(slid[new_index]).attr('data-speed'));
                     }
                 });
         $.fn.extend(
                 {
-                    bshift: function(){                        
-                        
+                    bshift: function(index){                        
+                        console.log(index);
                         window.addEventListener("resize", function() {
                             var _this = $('.b-active');
                             var new_outer_height = _this.height();
@@ -139,8 +148,9 @@
                             _this.find('.b-shift-content').css('padding-top',new_adjust+'px');
                             });     
                         info = this.getInfoalt();
+                        console.log(info);
                         //index = 0;
-                        $(info).banimate(0);
+                        $(info).banimate(index);
 
                         
                     }
@@ -156,10 +166,11 @@
             i = 0;
             index = 0;
             slides = $('.b-frame').find('li');
+            console.log(slides);
             slidesLength = slides.length;
             //var slidesInfo = $('#frame').find('li').getInfoalt();
             var a = 0;
             $('.slide-nav-left').click(function(){ $(this).bclick(index)});
-            setTimeout(function(){slides.bshift(index)},$(slides[0]).attr('data-speed')); 
+            setTimeout(function(){slides.bshift(0)},$(slides[0]).attr('data-speed')); 
         });
 
