@@ -1,69 +1,20 @@
-body {
-        margin: 0;
-        background-color: #000;
-    }
-    
-   
-   .b-frame li p {   padding-left: 65px;
-                padding-right: 65px;
-                margin:0px !important;
-    }
-    .b-shift-content p {
-            color: #FFF;
-        }
-    
-    .b-shift-content h1 {
-                font-size: 34px;
-                color: #FFF;
-                font-family: Helvetica;
-                font-weight: 600;
-                font-style: italic;
-                
-                display: inline;
-                           
-                position: relative;
-                z-index: 1;
-                text-align: center;
-            }
-    .b-shift-content {
-        width: 75%;
-        margin-left: 12.5%;
-        text-align: center;
-        display: block;
-        position: relative;
-    }
+
      
-  
-     .b-frame {
-
-            overflow: hidden;
-            width: auto; 
-         /*There should not be any margin here 
-            margin: 10px;*/     
-            margin:0px;
-            padding: 0; 
-     }
-     .b-outer-frame {
-        width: 100%;
-     }
-     @media (max-width:768px) {
+    /* @media (max-width:768px) {
             .b-frame {
-                height: 195px !important;
+                height: 195px;
             }
      }
-     @media (max-width:480px) {
-            
+     @media (max-width:480px) {            
 
-        .b-frame {
-
+        body .b-frame {
                 overflow: hidden;
-                height: 145px; 
-                
-                
+                height: 145px;               
             }
-        .b-frame li p {
+
+        body .b-frame li p {
             padding-left: 0;
             padding-right: 0;
         }
 
-    }
+    }*/

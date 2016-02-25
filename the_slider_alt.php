@@ -2,18 +2,11 @@
 <html>
 <head>
     <meta charset="UTF-8" />
-<link rel="stylesheet" type="text/css" href="css/bshift.css">
+<link rel="stylesheet" type="text/css" href="css/new_sass.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="js/bshift.js" type="text/javascript"></script>
-<script>
-        $(document).ready(function() {
-            var slider_height = $('.b-frame').height();
-            var content_height = $('.b-shift-content').height();
-            var slider_top_margin = (slider_height-content_height)/2;
-            $('.b-shift-content').css('padding-top', slider_top_margin+'px');
-            //console.log(slider_top_margin);
-        });
-</script>
+
+
 </head>
     <!-- Need to now add in the navigation for moving to the next slide or previous slide.  1. arrow navigation on the left and the right. 2. bubble navigation on the bottom  -->
 <body>
@@ -21,6 +14,7 @@
     //eliminate headline.
         $b_frame_height =  "225px";
         $b_frame_width = "75%";
+        $slider_border = "4px solid";
         $slides = array();
         $slides[] = array(
             
@@ -35,14 +29,15 @@
             'delay'     =>'5000',
             'display'   =>'block',
             'state'     =>'published',
-            'opacity'   =>'0.5'
+            'opacity'   =>'0.9'
 
             );
+
         $slides[] = array(
             
             'width' => 'full',
             'id'    => 'beach',
-            'effect'=> 'rotate',
+            'effect'=> 'fade',
             'class' => 'spin',
             'slideImage'    => 'images/beach.jpg',
             'headline'  => '<h1>Beach</h1>',
@@ -56,11 +51,13 @@ When first to know herself the fair began,
 She played her smile\'s enchantment upon man;
 By softness and alluring speech she gained
 The ascendant, and her master soon enchained;</p>',
-            'delay'     => '5000',
+            'delay'     => '1500',
             'display'   =>'none',
             'state'     =>'published',
-            'opacity'   =>'0.9' 
+            'opacity'   =>'0.9'
+
             );
+
         $slides[] = array(
             
             'width' => 'full',
@@ -74,7 +71,7 @@ The ascendant, and her master soon enchained;</p>',
             'delay'     => '5000',
             'display'   =>'none',
             'state'     =>'published',
-            'opacity'   =>'0.5' 
+            'opacity'   =>'1' 
             );
         $slides[] = array(
             
@@ -86,7 +83,7 @@ The ascendant, and her master soon enchained;</p>',
             'headline'  => '<h1>Abstract</h1>',
             'rotate'    => '0',
             'content'   => '<p>Some sample text here.....</p>',
-            'delay'     => '10000',
+            'delay'     => '1000',
             'display'   =>'none' ,
             'state'     =>'published',
             'opacity'   =>'1'
@@ -104,28 +101,29 @@ The ascendant, and her master soon enchained;</p>',
             'delay'     => '10000',
             'display'   =>'none',
             'state'     =>'published',
-            'opacity'   =>'0.7'
+            'opacity'   =>'1'
             );
     ?>
     <!-- need to get names straight overall container should not have the same name as an inner div.-->
     <div class="b-outer-frame">
-        <ul class="b-frame normal-slider fullwidth-slider" style="background-color: #000; height: <?php echo $b_frame_height; ?>; width: <?php echo $b_frame_width; ?>; ">
+        <ul class="b-frame normal-slider fullwidth-slider" style="background-color: #000; height: <?php echo $b_frame_height; ?>; width: <?php echo $b_frame_width; ?>; border: <?php echo $slider_border; ?>;">
 
             <!-- Each li should have the animation specified not the ul -->
-            <?php foreach($slides as $slide){ ?>
+            <?php foreach($slides as $slide){ if($slide['state']=='published'){ ?>
             <li id="<?php echo $slide['id']; ?>" class="<?php echo $slide['class'].' '.$slide['effect'].' '.$slide['width']; ?>" 
                 data-speed="<?php echo $slide['delay']; ?>" data-rotate="<?php echo $slide['rotate']; ?>" 
-                data-effect="<?php echo $slide['effect']; ?>" style="background-image: url('<?php echo $slide['slideImage']; ?>'); background-size:cover; height: 100%; width: 100%; background-position: 0, 250px; opacity: <?php echo $slide['opacity']; ?>;">
-                <!-- this div needs to be placed perfect center not center text.  contrain it so it is not 100% of the parent container add slight padding and center div horiz and vertic.  DO NOT center content -->
+                data-effect="<?php echo $slide['effect']; ?>" style="background-image: url('<?php echo $slide['slideImage']; ?>'); background-size:cover; height: 100%; width: 100%; background-position: 0, 250px; opacity: <?php echo $slide['opacity']; ?>; ">
+                    <!-- this div needs to be placed perfect center not center text.  contrain it so it is not 100% of the parent container add slight padding and center div horiz and vertic.  DO NOT center content -->
                 <div class="b-shift-content">
                     <!-- need to start setting some basic constraitns on the elements to ensure they always render as good as possible under minimal settings. -->
-                    
+                <span class="slide-nav-left"></span>
+                <span class="slide-nav-right"></span> 
                     
                     
                     <?php echo $slide['content']; ?>
                 </div>
             </li>
-            <?php } ?>
+            <?php } }?>
         </ul>
     </div>
 </body>

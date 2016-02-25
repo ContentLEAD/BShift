@@ -1,32 +1,120 @@
-$color: "#000";
+$color: "#FFF";
 
 body {
+	margin: 0;
+	background-color: $color;
+	.b-outer-frame {
+        width: 100%;
+     }
+
 	div {
 		position: relative;
-		color: $color;
-	}
-}
-div.somename ul.somename li.somename div.content p{
-
-}
-
-div.somename{
-
-	ul.somename{
-
-		li.somename{
-
-
-		}
-		li.somename2{
-
-
-		}
-		li.somename3{
-
-			
-		}
-
+		background-color: $color;
 	}
 
+	.b-frame {
+			overflow: hidden;
+            width: auto;     
+            margin:0px;
+            padding: 0;
+
+            li {
+                .slide-nav-left {    
+                            height: 0px;
+                            width: 0px;
+                            border-top: 30px solid transparent;
+                            position: absolute;
+                            left: -20px;
+                            border-bottom: 30px solid transparent;
+                            border-right: 30px solid #FFF;
+                            opacity: 0.6;
+                        }
+                
+                    .slide-nav-left:hover {
+                            border-right-color: #000;
+                            cursor: pointer;
+                        }
+
+                    .slide-nav-right {
+                            height: 0px;
+                            width: 0px;
+                            border-top: 30px solid transparent;
+                            position: absolute;
+                            right: -20px;
+                            border-bottom: 30px solid transparent;
+                            border-left: 30px solid #FFF;
+                            opacity: 0.6;
+                        }
+
+                    .slide-nav-right:hover {
+                            border-left-color: #000;
+                            cursor: pointer;
+                        }
+                    }
+
+            	.b-shift-content {
+            				h1 {
+                					font-size: 34px;
+                					color: #FFF;
+                					font-family: Helvetica;
+                					font-weight: 600;
+                					font-style: italic;
+                					display: inline;        
+                					position: relative;
+                					z-index: 1;
+                					text-align: center;
+            					}
+            				p {
+            					color: #FFF;
+        					}	
+        					width: 75%;
+        					margin-left: 12.5%;
+        					text-align: center;
+        					display: block;
+        					position: relative;
+    				}
+            	p {
+            		padding-left: 65px;
+                    padding-right: 65px;
+                    margin:0px !important;
+            	}
+            }
+	}
+
+@media (max-width:768px) {
+    body {
+        .b-frame {
+                overflow: hidden;
+                height: 195px; 
+
+                li {
+                    p {
+                        padding-left: 0;
+                        padding-right: 0;
+                    }
+                }                      
+            }
+    }
+}
+@media (max-width:480px) { 
+    body {
+        .b-frame {
+                overflow: hidden;
+                height: 145px;
+                li {
+                .slide-nav-left {
+                    border-top: 15px solid transparent;
+                    border-bottom: 15px solid transparent;
+                    border-right: 15px solid #FFF;
+
+                    }
+                .slide-nav-right {
+                    border-top: 15px solid transparent;
+                    border-bottom: 15px solid transparent;
+                    border-left: 15px solid #FFF;
+                    }
+                }
+                     
+            }
+    }
 }

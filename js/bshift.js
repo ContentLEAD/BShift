@@ -53,12 +53,10 @@
 
                         //use _this instead of that.
                         //var that = this;
+                        //console.log("index " + index);
                         var _this = this;
-                        //console.log(that);
                         currentSlide = $(_this[index].object);
-                        index=index+1;
-                        //console.log(that[index].duration);
-                        
+                        index=index+1;                        
                         if(index==slidesLength){
                             //console.log("Reached end "+index);
                             index=0;
@@ -105,76 +103,63 @@
                                     $(nextSlide).show(duration,function(){$(this).addClass('b-active');});
                                     $(currentSlide).toggle(duration,function(){$(this).removeClass('b-active');});
 
-                            }
-                        /*
-                        switch(effect) {
-                                case 'fade':
-                                    console.log('fading out');
-                                    $(currentSlide).fadeOut(duration);
-                                    break;
-                                case 'slide-vertical':
-                                    console.log('sliding out');
-                                    $(currentSlide).slideToggle(duration);
-                                    break;
-                                case 'slide-horizontal':
-                                    $(currentSlide).hide('slide',{direction: direction}, duration);
-                                    break;
-                                default:
-                                    console.log('toggling');
-                                    $(currentSlide).toggle(duration);
-                            }
-                                */
-                        
-                        
+                            }               
                                             
                         setTimeout(function(){ _this.banimate(index)},_this[index].duration);        
                     }
                 }
-                );
-
+                );        
         $.fn.extend(
                 {
-                    bshift: function(){
+                    bclick: function() {
+
+                        //console.log(this);
+                        var context = $(this).context;
+                        var context_parent = context.parentElement;
+                        var cp_parent = context_parent.parentElement;
+                        var cp_parent_prev = $(cp_parent).prev();
+                        new_index = $(cp_parent).index();
+                        //console.log("index " + new_index);
+                        $(cp_parent).toggle();
+                        $(cp_parent_prev).toggle();
+                        setTimeout(function(){slides.banimate(new_index)},$(slides[new_index]).attr('data-speed'));
+                    }
+                });
+        $.fn.extend(
+                {
+                    bshift: function(){                        
                         
-                        //console.log(this[0]);
+                        window.addEventListener("resize", function() {
+                            var _this = $('.b-active');
+                            var new_outer_height = _this.height();
+                            var new_inner_height = _this.find('.b-shift-content').height();
+                            var new_adjust = (new_outer_height/2) - (new_inner_height/2);
+                            //console.log(_this);
+                        //console.log("resize "+new_inner_height);
+                            _this.find('.b-shift-content').css('padding-top',new_adjust+'px');
+                            });     
                         info = this.getInfoalt();
-                        //console.log(info[0].object);
-                        index = 0;
+                        //index = 0;
                         $(info).banimate(0);
-                        //setTimeout($(this[0]).banimate(0),5000);
-                        //return info;
+
                         
                     }
                 }
-            );
-
+            );  
 
         $(document).ready(function() {
-            
+
+            var slider_height = $('.b-frame').height();
+            var content_height = $('.b-shift-content').height();
+            var slider_top_margin = (slider_height-content_height)/2;
+            $('.b-shift-content').css('padding-top', slider_top_margin+'px');
             i = 0;
-            
+            index = 0;
             slides = $('.b-frame').find('li');
             slidesLength = slides.length;
             //var slidesInfo = $('#frame').find('li').getInfoalt();
-            
             var a = 0;
-            console.log($(slides[0]).attr('data-speed'));
-            setTimeout(function(){slides.bshift()},$(slides[0]).attr('data-speed'));
-
-             window.addEventListener("resize", function() {
-
-                        //$('.headline-chamber2:visible').css('padding-top','0px');
-                        var _this = $('.b-active');
-                        var new_outer_height = _this.height();
-                        var new_inner_height = _this.find('.b-shift-content').height();
-                        var new_adjust = (new_outer_height/2) - (new_inner_height/2);
-                        //console.log("resize: "+new_inner_height);
-                        console.log("resize "+new_adjust);
-                        _this.find('.b-shift-content').css('padding-top',new_adjust+'px');
-                        });       
-
-        
-           
-       
+            $('.slide-nav-left').click(function(){ $(this).bclick(index)});
+            setTimeout(function(){slides.bshift(index)},$(slides[0]).attr('data-speed')); 
         });
 

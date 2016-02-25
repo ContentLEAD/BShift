@@ -1,5 +1,115 @@
-/* line 4, sass/new_sass.scss */
+/* line 3, sass/new_sass.scss */
+body {
+  margin: 0;
+  background-color: "#FFF";
+}
+/* line 6, sass/new_sass.scss */
+body .b-outer-frame {
+  width: 100%;
+}
+/* line 10, sass/new_sass.scss */
 body div {
   position: relative;
-  color: "#000";
+  background-color: "#FFF";
+}
+/* line 15, sass/new_sass.scss */
+body .b-frame {
+  overflow: hidden;
+  width: auto;
+  margin: 0px;
+  padding: 0;
+}
+/* line 22, sass/new_sass.scss */
+body .b-frame li .slide-nav-left {
+  height: 0px;
+  width: 0px;
+  border-top: 30px solid transparent;
+  position: absolute;
+  left: -20px;
+  border-bottom: 30px solid transparent;
+  border-right: 30px solid #FFF;
+  opacity: 0.6;
+}
+/* line 33, sass/new_sass.scss */
+body .b-frame li .slide-nav-left:hover {
+  border-right-color: #000;
+  cursor: pointer;
+}
+/* line 38, sass/new_sass.scss */
+body .b-frame li .slide-nav-right {
+  height: 0px;
+  width: 0px;
+  border-top: 30px solid transparent;
+  position: absolute;
+  right: -20px;
+  border-bottom: 30px solid transparent;
+  border-left: 30px solid #FFF;
+  opacity: 0.6;
+}
+/* line 49, sass/new_sass.scss */
+body .b-frame li .slide-nav-right:hover {
+  border-left-color: #000;
+  cursor: pointer;
+}
+/* line 55, sass/new_sass.scss */
+body .b-frame .b-shift-content {
+  width: 75%;
+  margin-left: 12.5%;
+  text-align: center;
+  display: block;
+  position: relative;
+}
+/* line 56, sass/new_sass.scss */
+body .b-frame .b-shift-content h1 {
+  font-size: 34px;
+  color: #FFF;
+  font-family: Helvetica;
+  font-weight: 600;
+  font-style: italic;
+  display: inline;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+/* line 67, sass/new_sass.scss */
+body .b-frame .b-shift-content p {
+  color: #FFF;
+}
+/* line 76, sass/new_sass.scss */
+body .b-frame p {
+  padding-left: 65px;
+  padding-right: 65px;
+  margin: 0px !important;
+}
+
+@media (max-width: 768px) {
+  /* line 86, sass/new_sass.scss */
+  body .b-frame {
+    overflow: hidden;
+    height: 195px;
+  }
+  /* line 91, sass/new_sass.scss */
+  body .b-frame li p {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+@media (max-width: 480px) {
+  /* line 101, sass/new_sass.scss */
+  body .b-frame {
+    overflow: hidden;
+    height: 145px;
+  }
+  /* line 105, sass/new_sass.scss */
+  body .b-frame li .slide-nav-left {
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-right: 15px solid #FFF;
+  }
+  /* line 111, sass/new_sass.scss */
+  body .b-frame li .slide-nav-right {
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-left: 15px solid #FFF;
+  }
 }
