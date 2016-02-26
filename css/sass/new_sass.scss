@@ -53,6 +53,7 @@ body {
                     }
 
             	.b-shift-content {
+                            
             				h1 {
                 					font-size: 34px;
                 					color: #FFF;
@@ -91,6 +92,18 @@ body {
                     p {
                         padding-left: 0;
                         padding-right: 0;
+                        }
+
+                .slide-nav-left {
+                    border-top: 15px solid transparent;
+                    border-bottom: 15px solid transparent;
+                    border-right: 15px solid #FFF;
+
+                    }
+                .slide-nav-right {
+                    border-top: 15px solid transparent;
+                    border-bottom: 15px solid transparent;
+                    border-left: 15px solid #FFF;
                     }
                 }                      
             }
@@ -100,7 +113,7 @@ body {
     body {
         .b-frame {
                 overflow: hidden;
-                height: 145px;
+                height: 145px !important;
                 li {
                 .slide-nav-left {
                     border-top: 15px solid transparent;

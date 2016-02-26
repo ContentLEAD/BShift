@@ -13,8 +13,7 @@
                                 "duration" : $(this).attr('data-speed'), 
                                 "index" : index,
                                 "effect" : $(this).attr('data-effect'),
-                                "rotation" : $(this).attr('data-rotate'),
-                                "direction"  : $(this).attr('data-direction')
+                                "rotation" : $(this).attr('data-rotate')
                             });
                                                   
                         });
@@ -28,9 +27,7 @@
                     bheight: function(){
 
                         
-                        var element = $(this).find('.b-shift-content');
-                        
-                        
+                        var element = $(this).find('.b-shift-content');                    
                         $(this).css({'position':'relative','visibility':'hidden', 'display':'block'});
                         var outer_height = $(this).height();
                         var inner_height = $(this).find('.b-shift-content').height();
@@ -55,20 +52,16 @@
                         
                         //use _this instead of that.
                         //var that = this;
-                        //console.log("index " + index);
                         var _this = this;
                         currentSlide = $(_this[index].object);
                         index=index+1;                        
                         if(index==slidesLength){
-                            //console.log("Reached end "+index);
                             index=0;
                             nextSlide=(_this[0].object);
 
                         } else {
                         nextSlide=$(currentSlide).next();
                         }
-                        console.log(_this);
-                        //console.log(that[index].effect);
                         $(nextSlide).bheight();
                         var effect = _this[index].effect;
                         var direction = _this[index].direction;
@@ -76,9 +69,7 @@
                         var rotation =  _this[index].rotation;
                         var degree = 45;
                         switch(effect) {
-                                case 'slide-vertical':
-                                    
-                                    
+                                case 'slide-vertical':                                   
                                     $(nextSlide).slideToggle(duration,function(){$(this).addClass('b-active');});
                                     $(currentSlide).slideToggle(duration,function(){$(this).removeClass('b-active');});
                                     break;
@@ -113,43 +104,58 @@
                 );        
         $.fn.extend(
                 {
-                    bclick: function() {
+                    bclick: function(dir) {
+                        if(typeof bshiftcontroller == 'undefined') {
+                            return;
+                        }
                         window.clearTimeout(bshiftcontroller);
-                        //console.log(this);
                         var context = $(this).context;
                         var context_parent = context.parentElement;
                         var cp_parent = context_parent.parentElement;
-                        var cp_parent_prev = $(cp_parent).prev();
                         var new_index = $(cp_parent).index();
-                        //console.log("index " + new_index);
-                        $(cp_parent).toggle();
-                        $(cp_parent_prev).toggle();
+                        var cp_parent_prev = $(cp_parent).prev();
+                        var cp_parent_next = $(cp_parent).next();
                         var slid = $('.b-frame').find('li');
-                        console.log(slid);
-                        
-                        
+                        $(cp_parent).toggle();
+                        if(dir =="left") {                   
+                            $(cp_parent_prev).toggle();
+                            ++new_index;
+                        }
+                        else {
+                            $(cp_parent_next).toggle();
+                            --new_index;
+                            console.log(new_index);
+                        }
+
+                        if (new_index == slidesLength-1) {
+                            new_index=0;
+                        }
+                        if(new_index == -1) {
+                            new_index == slidesLength-1;
+                        }
+                        //console.log(new_index);
                         setTimeout(function(){
-                            slid.bshift(--new_index)
-                        },
+                            slid.bshift(new_index)
+                            },
                             $(slid[new_index]).attr('data-speed'));
-                    }
+                        
+                    }                    
+                        
                 });
         $.fn.extend(
                 {
                     bshift: function(index){                        
-                        console.log(index);
+
                         window.addEventListener("resize", function() {
+
                             var _this = $('.b-active');
                             var new_outer_height = _this.height();
                             var new_inner_height = _this.find('.b-shift-content').height();
                             var new_adjust = (new_outer_height/2) - (new_inner_height/2);
-                            //console.log(_this);
-                        //console.log("resize "+new_inner_height);
+                            if(new_adjust<0) { new_adjust = 0;}
                             _this.find('.b-shift-content').css('padding-top',new_adjust+'px');
                             });     
                         info = this.getInfoalt();
-                        console.log(info);
-                        //index = 0;
                         $(info).banimate(index);
 
                         
@@ -163,14 +169,16 @@
             var content_height = $('.b-shift-content').height();
             var slider_top_margin = (slider_height-content_height)/2;
             $('.b-shift-content').css('padding-top', slider_top_margin+'px');
+            var span_left_height = $('.slide-nav-left').outerHeight();
+            var span_top_margin = (slider_height-span_left_height)/2;
+            $('.slide-nav-left').css('top', span_top_margin+'px');
+            $('.slide-nav-right').css('top', span_top_margin+'px');
             i = 0;
             index = 0;
             slides = $('.b-frame').find('li');
-            console.log(slides);
             slidesLength = slides.length;
-            //var slidesInfo = $('#frame').find('li').getInfoalt();
             var a = 0;
-            $('.slide-nav-left').click(function(){ $(this).bclick(index)});
+            $('.b-shift-content span').click(function(){ dir = $(this).attr('data-direction'); $(this).bclick(dir)});
             setTimeout(function(){slides.bshift(0)},$(slides[0]).attr('data-speed')); 
         });
 

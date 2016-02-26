@@ -43,7 +43,7 @@
             'headline'  => '<h1>Beach</h1>',
             'rotate'    => '5',
             'content'   => '<p>
-When with a skilful hand Prometheus made
+When with a skillful hand Prometheus made
 A statue that the human form displayed,
 Pandora, his own work, to wed he chose,
 And from those two the human race arose.
@@ -116,8 +116,8 @@ The ascendant, and her master soon enchained;</p>',
                     <!-- this div needs to be placed perfect center not center text.  contrain it so it is not 100% of the parent container add slight padding and center div horiz and vertic.  DO NOT center content -->
                 <div class="b-shift-content">
                     <!-- need to start setting some basic constraitns on the elements to ensure they always render as good as possible under minimal settings. -->
-                <span class="slide-nav-left"></span>
-                <span class="slide-nav-right"></span> 
+                <span class="slide-nav-left" data-direction="left"></span>
+                <span class="slide-nav-right" data-direction="right"></span> 
                     
                     
                     <?php echo $slide['content']; ?>
