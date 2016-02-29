@@ -98,7 +98,7 @@ The ascendant, and her master soon enchained;</p>',
             'rotate'    => '0',
             'headline'  => 'headline',
             'content'   => '<h1>Vacation</h1><p>Enquire within regarding our extended stay packages</p><a href="">Gold Card Member login here</a>',
-            'delay'     => '5000',
+            'delay'     => '500000',
             'display'   =>'none',
             'state'     =>'published',
             'opacity'   =>'1'
@@ -112,8 +112,8 @@ The ascendant, and her master soon enchained;</p>',
             <?php foreach($slides as $slide){ if($slide['state']=='published'){ ?>
             <li id="<?php echo $slide['id']; ?>" class="<?php echo $slide['class'].' '.$slide['effect'].' '.$slide['width']; ?>" 
                 data-speed="<?php echo $slide['delay']; ?>" data-rotate="<?php echo $slide['rotate']; ?>" 
-                data-effect="<?php echo $slide['effect']; ?>" style="background-image: url('<?php echo $slide['slideImage']; ?>'); background-size:cover; height: 100%; width: 100%; background-position: 0, 250px; opacity: <?php echo $slide['opacity']; ?>; ">
-                    <!-- this div needs to be placed perfect center not center text.  contrain it so it is not 100% of the parent container add slight padding and center div horiz and vertic.  DO NOT center content -->
+                data-effect="<?php echo $slide['effect']; ?>" style="background-image: url('<?php echo $slide['slideImage']; ?>'); background-size:cover; height: 100%; width: 100%; background-position: 0, 250px; opacity: <?php echo $slide['opacity']; ?>; display: <?php echo $slide['display']; ?>; ">
+                    <!-- this div needs to be placed perfect center not center text.  contrain it so it is not 100% of the parent container add slight padding and center div horiz and vertic.  DO NOT center content -->     
                 <div class="b-shift-content">
                     <!-- need to start setting some basic constraitns on the elements to ensure they always render as good as possible under minimal settings. -->
                 <span class="slide-nav-left" data-direction="left"></span>

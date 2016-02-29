@@ -1,3 +1,14 @@
+        
+        sliderResize = function() {
+
+                            var _this = $('.b-active');
+                            var new_outer_height = _this.height();
+                            var new_inner_height = _this.find('.b-shift-content').height();
+                            var new_adjust = (new_outer_height/2) - (new_inner_height/2);
+                            if(new_adjust<0) { new_adjust = 0;}
+                            _this.find('.b-shift-content').css('padding-top',new_adjust+'px');
+                            }
+
         $.fn.extend({
 
         
@@ -105,39 +116,48 @@
         $.fn.extend(
                 {
                     bclick: function(dir) {
-                        if(typeof bshiftcontroller == 'undefined') {
-                            return;
+                        if(typeof bshiftcontroller !== 'undefined') {
+                            window.clearTimeout(bshiftcontroller);
                         }
-                        window.clearTimeout(bshiftcontroller);
+                        var slid = $('.b-frame').find('li');
                         var context = $(this).context;
                         var context_parent = context.parentElement;
                         var cp_parent = context_parent.parentElement;
-                        var new_index = $(cp_parent).index();
-                        var cp_parent_prev = $(cp_parent).prev();
-                        var cp_parent_next = $(cp_parent).next();
-                        var slid = $('.b-frame').find('li');
+                        var current_slides_index = $(cp_parent).index();
+
+                        //if index = 0....set appropriate previous and if index = slidesLength -1 set next slide = to slide 0
+                        if (current_slides_index==0) {
+                            var cp_parent_prev = slid[slidesLength-1];
+                            var cp_parent_next = $(cp_parent).next();
+                        } else if (current_slides_index==slidesLength-1) {
+                            var cp_parent_prev = $(cp_parent).prev();
+                            var cp_parent_next = slid[0];
+                        } else {
+                            var cp_parent_prev = $(cp_parent).prev();
+                            var cp_parent_next = $(cp_parent).next();
+                        }
                         $(cp_parent).toggle();
-                        if(dir =="left") {                   
+                        if(dir =="left") { 
+                            $(cp_parent_prev).bheight();                  
                             $(cp_parent_prev).toggle();
-                            ++new_index;
+                            --current_slides_index;
                         }
                         else {
+                            $(cp_parent_next).bheight();
                             $(cp_parent_next).toggle();
-                            --new_index;
-                            console.log(new_index);
+                            ++current_slides_index;
+                            console.log(current_slides_index);
                         }
-
-                        if (new_index == slidesLength-1) {
-                            new_index=0;
+                        if(current_slides_index==-1) {
+                            current_slides_index = slidesLength-1;
                         }
-                        if(new_index == -1) {
-                            new_index == slidesLength-1;
+                        if(current_slides_index==slidesLength) {
+                            current_slides_index = 0;
                         }
-                        //console.log(new_index);
-                        setTimeout(function(){
-                            slid.bshift(new_index)
+                        bshiftcontroller = setTimeout(function(){
+                            slid.bshift(current_slides_index)
                             },
-                            $(slid[new_index]).attr('data-speed'));
+                            $(slid[current_slides_index]).attr('data-speed'));
                         
                     }                    
                         
@@ -146,15 +166,7 @@
                 {
                     bshift: function(index){                        
 
-                        window.addEventListener("resize", function() {
-
-                            var _this = $('.b-active');
-                            var new_outer_height = _this.height();
-                            var new_inner_height = _this.find('.b-shift-content').height();
-                            var new_adjust = (new_outer_height/2) - (new_inner_height/2);
-                            if(new_adjust<0) { new_adjust = 0;}
-                            _this.find('.b-shift-content').css('padding-top',new_adjust+'px');
-                            });     
+                        window.addEventListener("resize", sliderResize);     
                         info = this.getInfoalt();
                         $(info).banimate(index);
 
@@ -179,6 +191,6 @@
             slidesLength = slides.length;
             var a = 0;
             $('.b-shift-content span').click(function(){ dir = $(this).attr('data-direction'); $(this).bclick(dir)});
-            setTimeout(function(){slides.bshift(0)},$(slides[0]).attr('data-speed')); 
+            bshiftcontroller = setTimeout(function(){slides.bshift(0)},$(slides[0]).attr('data-speed')); 
         });
 
