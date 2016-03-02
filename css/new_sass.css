@@ -1,30 +1,20 @@
-/* line 3, sass/new_sass.scss */
-body {
-  margin: 0;
-  background-color: "#FFF";
-}
-/* line 6, sass/new_sass.scss */
-body .b-outer-frame {
+/* line 2, sass/new_sass.scss */
+.b-outer-frame {
   width: 100%;
 }
-/* line 10, sass/new_sass.scss */
-body div {
-  position: relative;
-  background-color: "#FFF";
-}
-/* line 15, sass/new_sass.scss */
-body .b-frame {
+/* line 5, sass/new_sass.scss */
+.b-outer-frame .b-frame {
   overflow: hidden;
   width: auto;
   margin: 0px;
   padding: 0;
 }
-/* line 23, sass/new_sass.scss */
-body .b-frame li a {
+/* line 13, sass/new_sass.scss */
+.b-outer-frame .b-frame li a {
   display: block;
 }
-/* line 26, sass/new_sass.scss */
-body .b-frame li .slide-nav-left {
+/* line 17, sass/new_sass.scss */
+.b-outer-frame .b-frame li .slide-nav-left {
   height: 0px;
   width: 0px;
   border-top: 30px solid transparent;
@@ -34,13 +24,13 @@ body .b-frame li .slide-nav-left {
   border-right: 30px solid #FFF;
   opacity: 0.6;
 }
-/* line 37, sass/new_sass.scss */
-body .b-frame li .slide-nav-left:hover {
+/* line 29, sass/new_sass.scss */
+.b-outer-frame .b-frame li .slide-nav-left:hover {
   border-right-color: #000;
   cursor: pointer;
 }
-/* line 42, sass/new_sass.scss */
-body .b-frame li .slide-nav-right {
+/* line 34, sass/new_sass.scss */
+.b-outer-frame .b-frame li .slide-nav-right {
   height: 0px;
   width: 0px;
   border-top: 30px solid transparent;
@@ -50,21 +40,21 @@ body .b-frame li .slide-nav-right {
   border-left: 30px solid #FFF;
   opacity: 0.6;
 }
-/* line 53, sass/new_sass.scss */
-body .b-frame li .slide-nav-right:hover {
+/* line 45, sass/new_sass.scss */
+.b-outer-frame .b-frame li .slide-nav-right:hover {
   border-left-color: #000;
   cursor: pointer;
 }
-/* line 59, sass/new_sass.scss */
-body .b-frame .b-shift-content {
+/* line 50, sass/new_sass.scss */
+.b-outer-frame .b-frame li .b-shift-content {
   width: 75%;
   margin-left: 12.5%;
   text-align: center;
   display: block;
   position: relative;
 }
-/* line 61, sass/new_sass.scss */
-body .b-frame .b-shift-content h1 {
+/* line 57, sass/new_sass.scss */
+.b-outer-frame .b-frame li .b-shift-content h1 {
   font-size: 34px;
   color: #FFF;
   font-family: Helvetica;
@@ -75,59 +65,64 @@ body .b-frame .b-shift-content h1 {
   z-index: 1;
   text-align: center;
 }
-/* line 72, sass/new_sass.scss */
-body .b-frame .b-shift-content p {
+/* line 68, sass/new_sass.scss */
+.b-outer-frame .b-frame li .b-shift-content p {
   color: #FFF;
 }
-/* line 81, sass/new_sass.scss */
-body .b-frame p {
+/* line 71, sass/new_sass.scss */
+.b-outer-frame .b-frame li .b-shift-content img {
+  width: auto;
+  height: 100px;
+}
+/* line 78, sass/new_sass.scss */
+.b-outer-frame .b-frame p {
   padding-left: 65px;
   padding-right: 65px;
   margin: 0px !important;
 }
 
 @media (max-width: 768px) {
-  /* line 91, sass/new_sass.scss */
-  body .b-frame {
+  /* line 87, sass/new_sass.scss */
+  .b-frame {
     overflow: hidden;
     height: 195px;
   }
-  /* line 96, sass/new_sass.scss */
-  body .b-frame li p {
+  /* line 92, sass/new_sass.scss */
+  .b-frame li p {
     padding-left: 20px;
     padding-right: 20px;
   }
-  /* line 101, sass/new_sass.scss */
-  body .b-frame li .slide-nav-left {
+  /* line 97, sass/new_sass.scss */
+  .b-frame li .slide-nav-left {
     border-top: 15px solid transparent;
     border-bottom: 15px solid transparent;
     border-right: 15px solid #FFF;
   }
-  /* line 107, sass/new_sass.scss */
-  body .b-frame li .slide-nav-right {
+  /* line 103, sass/new_sass.scss */
+  .b-frame li .slide-nav-right {
     border-top: 15px solid transparent;
     border-bottom: 15px solid transparent;
     border-left: 15px solid #FFF;
   }
 }
 @media (max-width: 480px) {
-  /* line 119, sass/new_sass.scss */
-  body .b-frame {
+  /* line 115, sass/new_sass.scss */
+  .b-frame {
     overflow: hidden;
     height: 145px !important;
   }
-  /* line 123, sass/new_sass.scss */
-  body .b-frame li p {
+  /* line 120, sass/new_sass.scss */
+  .b-frame li p {
     display: none;
   }
-  /* line 126, sass/new_sass.scss */
-  body .b-frame li .slide-nav-left {
+  /* line 124, sass/new_sass.scss */
+  .b-frame li .slide-nav-left {
     border-top: 15px solid transparent;
     border-bottom: 15px solid transparent;
     border-right: 15px solid #FFF;
   }
   /* line 132, sass/new_sass.scss */
-  body .b-frame li .slide-nav-right {
+  .b-frame li .slide-nav-right {
     border-top: 15px solid transparent;
     border-bottom: 15px solid transparent;
     border-left: 15px solid #FFF;
