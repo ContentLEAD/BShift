@@ -13,7 +13,7 @@
     <?php
     //eliminate headline.
         $b_frame_height =  "225px";
-        $b_frame_width = "75%";
+        $b_frame_width = "90%";
         $slider_border = "4px solid";
         $slides = array();
         $slides[] = array(
@@ -98,7 +98,7 @@ The ascendant, and her master soon enchained;</p>',
             'rotate'    => '0',
             'headline'  => 'headline',
             'content'   => '<h1>Vacation</h1><p>Enquire within regarding our extended stay packages</p><a href="">Gold Card Member login here</a>',
-            'delay'     => '500000',
+            'delay'     => '5000',
             'display'   =>'none',
             'state'     =>'published',
             'opacity'   =>'1'

@@ -3,10 +3,15 @@
 
                             var _this = $('.b-active');
                             var new_outer_height = _this.height();
+                            console.log('Height: '+new_outer_height);
                             var new_inner_height = _this.find('.b-shift-content').height();
                             var new_adjust = (new_outer_height/2) - (new_inner_height/2);
+                            var span_left_height = _this.find('.slide-nav-left').outerHeight();
+                            var span_top_margin = (new_outer_height-span_left_height)/2;
                             if(new_adjust<0) { new_adjust = 0;}
                             _this.find('.b-shift-content').css('padding-top',new_adjust+'px');
+                            $('.slide-nav-left').css('top', span_top_margin+'px');
+                            $('.slide-nav-right').css('top', span_top_margin+'px');
                             }
 
         $.fn.extend({
@@ -37,19 +42,17 @@
                 {
                     bheight: function(){
 
-                        
                         var element = $(this).find('.b-shift-content');                    
                         $(this).css({'position':'relative','visibility':'hidden', 'display':'block'});
-                        var outer_height = $(this).height();
                         var inner_height = $(this).find('.b-shift-content').height();
+                        var span_height = $(this).find('.b-shift-content li span').outerHeight();
+                        var outer_height = $(this).height();
                         var adjust = (outer_height/2) - (inner_height/2);
+                        var span_adjust = (outer_height/2) - (span_height/2);
                         $(this).find('.b-shift-content').css('padding-top',+adjust+'px');
-                        //console.log($(this).height());
-                        //console.log("+"+ inner_height);
+                        $(this).find('.b-shift-content li span').css('padding-top',+adjust+'px');
+                        //console.log("+"+ span_adjust);
                         $(this).css({'position':'relative','visibility':'visible', 'display':'none'});
-                        
-                        //$(this).find('.headline-chamber2').css('padding-top',adjust);
-
                         
                     }
                 }
@@ -59,10 +62,6 @@
                 {
                     banimate: function(index){
                         
-                        
-                        
-                        //use _this instead of that.
-                        //var that = this;
                         var _this = this;
                         currentSlide = $(_this[index].object);
                         index=index+1;                        
@@ -71,7 +70,7 @@
                             nextSlide=(_this[0].object);
 
                         } else {
-                        nextSlide=$(currentSlide).next();
+                            nextSlide=$(currentSlide).next();
                         }
                         $(nextSlide).bheight();
                         var effect = _this[index].effect;
@@ -116,6 +115,7 @@
         $.fn.extend(
                 {
                     bclick: function(dir) {
+                        console.log(bshiftcontroller);
                         if(typeof bshiftcontroller !== 'undefined') {
                             window.clearTimeout(bshiftcontroller);
                         }
@@ -146,7 +146,7 @@
                             $(cp_parent_next).bheight();
                             $(cp_parent_next).toggle();
                             ++current_slides_index;
-                            console.log(current_slides_index);
+                            //console.log(current_slides_index);
                         }
                         if(current_slides_index==-1) {
                             current_slides_index = slidesLength-1;
