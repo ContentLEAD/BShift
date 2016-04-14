@@ -107,8 +107,7 @@ The ascendant, and her master soon enchained;</p>',
                 <div class="b-shift-content">
                     <!-- need to start setting some basic constraitns on the elements to ensure they always render as good as possible under minimal settings. -->
                 <span class="slide-nav-left" data-direction="left"></span>
-                <span class="slide-nav-right" data-direction="right"></span> 
-                    
+                <span class="slide-nav-right" data-direction="right"></span>                    
                     
                     <?php echo $slide['content']; ?>
                 </div>
@@ -116,5 +115,6 @@ The ascendant, and her master soon enchained;</p>',
             <?php } }?>
         </ul>
     </div>
+    <?php echo dirname(__FILE__); ?>
 </body>
 </html>
