@@ -2,9 +2,9 @@ jQuery(document).ready(function($){
 
 
 
-	$('.slide_input').mousedown(function() {
-    	$('.btn_save').show();
-    	console.log("mousedown");
+    $('.slide_input').mousedown(function() {
+        $('.btn_save').show();
+        console.log("mousedown");
     });
 
     $(document).on('click','.delete_slide',function( event ) {
@@ -38,20 +38,28 @@ jQuery(document).ready(function($){
             $(".ib input[class='slide_effect']").val(effect);
             
         });
-    	//console.log("trying to create new slide");
+        //console.log("trying to create new slide");
         $('.btn_save').show();
-    	$('.btn_save').before(
-    		'<div class="ib"><h4>Content</h4><input type="text" name="content[]"></input><h4>Height</h4><input type="text" name="height[]" class="slide_height" value="" ></input><h4>Width</h4><input type="text" name="width[]" class="slide_width" value="" ></input><h4>Effect</h4><input type="text" value="" class="slide_effect" name="effect[]"></input><h4>Index</h4><input type="text" name="index[]" ></input><input class="slide_input image_url" name="slide_upload[]" value="" type="text"></input><input class="upload_image_button" value="Add Image" data-target="brafton-end-button-preview" type="button"></input><img src="../wp-content/plugins/B-Shift//img/delete-button.jpg" data-ref="<?php echo $i; ?>" class="delete_slide" title="Delete this slide."/><img src="../wp-content/plugins/B-Shift//img/prev.png" class="preview" title="Preview this slide."/><div class="slide-preview"></div><input type="hidden" name="counter[]"></input></div>'
-    		);
+        $('.btn_save').before(
+            '<div class="ib"><h4>Content</h4><input type="text" name="content[]"></input><h4>Height</h4><input type="text" name="height[]" class="slide_height" value="" ></input><h4>Width</h4><input type="text" name="width[]" class="slide_width" value="" ></input><h4>Effect</h4><input type="text" value="" class="slide_effect" name="effect[]"></input><h4>Index</h4><input type="text" name="index[]" ></input><input class="slide_input image_url" name="slide_upload[]" value="" type="text"></input><input class="upload_image_button" value="Add Image" data-target="brafton-end-button-preview" type="button"></input><img src="../wp-content/plugins/B-Shift//img/delete-512.png" data-ref="<?php echo $i; ?>" class="delete_slide" title="Delete this slide."/><img src="../wp-content/plugins/B-Shift//img/prev.png" class="preview" title="Preview this slide."/><div class="slide-preview"></div><input type="hidden" name="counter[]"></input></div>'
+            );
     });
     $(document).on('click','.preview', function() {
-            var txt = $(this).text();
-            if(txt=='Preview Slide') {
+            var img_src = $(this).attr('src');
+            console.log(img_src);
+          if (img_src.indexOf("prev") >= 0) {
+                console.log('true');
+                $(this).attr('src','../wp-content/plugins/B-Shift//img/delete-button.jpg');
+                $(this).attr("title","Remove preview");
+            }else {
+                $(this).attr('src','../wp-content/plugins/B-Shift//img/prev.png');
+                $(this).attr('title',"Preview this slide");
+            }/*
                 $(this).text('Remove');
                 } else {
                 $(this).text('Preview Slide');
             }
-            console.log(txt);
+            console.log(txt);*/
             var prevu = $(this).next();
             $(prevu).toggle();
             
