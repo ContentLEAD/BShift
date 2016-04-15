@@ -17,6 +17,12 @@ wp_enqueue_script('add-slider',plugin_dir_url(__FILE__).'js/add_slider.js', arra
 wp_enqueue_style('jquery-ui','//code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css');
 wp_enqueue_style('bootstrap','https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css');
 wp_enqueue_style('bshift',plugin_dir_url(__FILE__).'css/bshift.css', array());
+
+function load_wp_media_files() {
+  wp_enqueue_media();
+}
+add_action('admin_enqueue_scripts','load_wp_media_files' );
+
 ?>
 
 <?php
