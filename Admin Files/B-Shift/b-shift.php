@@ -7,16 +7,25 @@
     Version: 1.0
     Author URI: http://www.brafton.com
     */
-wp_enqueue_script('jquery');
+//wp_enqueue_script('jquery');
 wp_enqueue_script('thickbox');
 wp_enqueue_script('media-models');
 wp_enqueue_script('media-upload');
 wp_enqueue_script('jquery-ui');
 wp_enqueue_script('upload_media_widget', plugin_dir_url(__FILE__).'js/upload-media.js', array());
 wp_enqueue_script('add-slider',plugin_dir_url(__FILE__).'js/add_slider.js', array());
+wp_enqueue_script('bshift-js',plugin_dir_url(__FILE__).'js/bshift.js', array());
+wp_enqueue_style('sass',plugin_dir_url(__FILE__).'css/new_sass.css', array());
 wp_enqueue_style('jquery-ui','//code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css');
 wp_enqueue_style('bootstrap','https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css');
 wp_enqueue_style('bshift',plugin_dir_url(__FILE__).'css/bshift.css', array());
+
+
+function load_wp_media_files() {
+  wp_enqueue_media();
+}
+add_action('admin_enqueue_scripts','load_wp_media_files' );
+
 ?>
 
 <?php
@@ -106,6 +115,7 @@ function create_slider() {
     			'meta_input'=>array("slider_title"=>$title)
                 
     		);
+
 		$post = wp_insert_post( $vars );
 		add_post_meta($post,'Slider_Name',$title,unique);
 		add_post_meta($post,'Slider_Delay',$delay,unique);
@@ -123,23 +133,41 @@ function create_slider() {
 add_action( 'wp_ajax_bshift_action', 'bshift_callback' );
 
 function bshift_callback() {
-    global $wpdb; // this is how you get access to the database
+    
+    global $wpdb; 
 
     $pid = intval( $_POST['id'] );
+    ob_start();
+    $current = get_post_meta($pid,'Slides_Array_Count',true);
+    $editor_id = 'slide_editor'.$current;
+    $settings = array( 'media_buttons' => false, 'textarea_name'=> 'slide_content[]','editor_height'=>'75px','editor_css'=>'<style>.wp-editor-wrap{width: 175px;}a#content-tmce, a#content-tmce:hover, #qt_content_fullscreen textarea{ display:none;}</style>');
+    $content = "";
+    wp_editor($content,$editor_id, $settings);
 
+
+    $link = ob_get_contents();
+    ob_end_clean();
+    $cid = $link;
     $wid = get_post_meta($pid,'Slider_Width',true);
     $hid = get_post_meta($pid,'Slider_Height',true);
     $eid = get_post_meta($pid,'Slider_Effect',true);
+    $did = get_post_meta($pid,'Slider_Delay',true);
+    $lid = get_post_meta($pid,'Slides_Array_Count',true);
+    $widm = get_post_meta($pid,'Slider_Width_Metric',true);
     $ajax_array = array();
     $ajax_array['wid'] = $wid;
     $ajax_array['hid'] = $hid;
     $ajax_array['eid'] = $eid;
+    $ajax_array['did'] = $did;
+    $ajax_array['lid'] = $lid;
+    $ajax_array['cid'] = $cid;
+    $ajax_array['widm'] = $widm;
 
     echo json_encode($ajax_array);
 
         //echo json_encode(var_dump($wpdb));
 
-    die(); // this is required to return a proper result
+    die(); 
 }
 
 function bshift_shortcode($atts) {
@@ -150,10 +178,14 @@ function bshift_shortcode($atts) {
     $post_id =  $a['id'];
     $slides = array(array());
     $slider_title = get_post_meta($post_id,'Slider_Name',true);
+    $slider_state = get_post_meta($post_id,'Slider_State',true);
     $slides = get_post_meta($post_id,'Slides_Array',true);
     $slide_count = get_post_meta($post_id,'Slides_Array_Count',true);
+    $total_width = get_post_meta($post_id,'Slider_Width',true) . get_post_meta($post_id,'Slider_Width_Metric',true);
+  
 
-    ob_start();
+    
+    ob_start(); /*
     var_dump($slides['content']);
     echo '</br>'. $slider_title;
     echo '<p>';
@@ -161,7 +193,31 @@ function bshift_shortcode($atts) {
         echo $slides['content'][$i];
         echo'</br>';
     }
-    echo '</p>';
+    echo '</p>'; */?>
+
+    <div class="b-outer-frame">
+        <ul class="b-frame normal-slider fullwidth-slider" style="background-color: #000; height: <?php echo get_post_meta($post_id,'Slider_Height',true); echo get_post_meta($post_id,'Slider_Height_Metric',true); ?>; width: <?php echo get_post_meta($post_id,'Slider_Width',true); echo get_post_meta($post_id,'Slider_Width_Metric',true); ?>;">
+
+            <!-- Each li should have the animation specified not the ul -->
+            <?php /*foreach($slides as $slide){ if($slide['state']=='published'){ */?>
+            <?php for($i=0;$i<$slide_count;$i++) {  if($slider_state == 'published'){ ?>
+            <li id="<?php echo $post_id; ?>" class="<?php echo $post_id .' '.$slides['effect'][$i] ?>" 
+                data-speed="<?php echo $slides['delay'][$i]; ?>" data-effect="<?php echo $slides['effect'][$i]; ?>" style="background-image: url('<?php echo $slides['slide_upload'][$i]; ?>'); background-size:cover; width: <?php echo $slides['width'][$i]; echo $slides['width_metric'][$i]; ?>; height: 100%; background-position: 0, <?php echo $total_width; ?>;  ">
+                    <!-- this div needs to be placed perfect center not center text.  contrain it so it is not 100% of the parent container add slight padding and center div horiz and vertic.  DO NOT center content -->     
+                <div class="b-shift-content">
+                    <!-- need to start setting some basic constraitns on the elements to ensure they always render as good as possible under minimal settings. -->
+                    <span class="slide-nav-left" data-direction="left"></span>
+                    <span class="slide-nav-right" data-direction="right"></span>                    
+                    
+                    <?php echo $slides['slide_content'][$i]; echo $slides['width_metric'][$i];?>
+
+                </div>
+            </li>
+
+            <?php } } ?>
+        </ul>
+    </div>
+    <?php
     return ob_get_clean();
 }
 add_shortcode('bshift', 'bshift_shortcode');

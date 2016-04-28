@@ -24,7 +24,7 @@
 	<h4>Background Color</h4><input type="text" name="bgcolor"></br>
 	<h4>Effect</h4>
 	<select name="effect">
-		<option value="fade">Fade</option>
+		<option value="fader">Fade</option>
 		<option value="slide_vertical">Slide Vertical</option>
 		<option value="slide_left">Slide Left</option>
 		<option value="slide_right">Slide Right</option>

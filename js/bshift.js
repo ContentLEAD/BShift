@@ -168,6 +168,7 @@
 
                         window.addEventListener("resize", sliderResize);     
                         info = this.getInfoalt();
+                        console.log(info);
                         $(info).banimate(index);
 
                         

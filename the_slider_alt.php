@@ -95,6 +95,7 @@ The ascendant, and her master soon enchained;</p>',
             );
     ?>
     <!-- need to get names straight overall container should not have the same name as an inner div.-->
+   
     <div class="b-outer-frame">
         <ul class="b-frame normal-slider fullwidth-slider" style="background-color: #000; height: <?php echo $b_frame_height; ?>; width: <?php echo $b_frame_width; ?>;">
 
