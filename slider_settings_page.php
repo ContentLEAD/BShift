@@ -17,11 +17,11 @@
 		<option value="percent">Percent</option>
 	</select></br>
 	<h4>Width</h4><input type="text" name="width">
-	<select name="width_metric">
-		<option value="pixels">Pixels</option>
-		<option value="percent">Percent</option>
+	<select name="width_metric" >
+		<option value="px" selected >Pixels</option>
+		<option value="%">Percent</option>
 	</select></br>
-	<h4>Background Color</h4><input type="text" name="bgcolor"></br>
+	<h4>Background Color</h4><input type="text" class="jscolor" name="bgcolor"></br>
 	<h4>Effect</h4>
 	<select name="effect">
 		<option value="fader">Fade</option>

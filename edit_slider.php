@@ -26,7 +26,9 @@
 
 	if(isset($_POST['save_slides'])) {
 		echo '</br>';
-		
+		echo '<pre>';
+		var_dump($_POST);
+		echo '</pre>';
 		$len = (sizeof($_POST['counter']))? sizeof($_POST['counter']) : sizeof($_POST['content']);
 		$temp_array = array(array());
 		for($i=0;$i<$len;$i++) {
@@ -87,7 +89,7 @@
 					<option value="px" <?php if($selected_metric == 'px'){echo("selected");}?>>Pixels</option>
 					<option value="%" <?php if($selected_metric == '%'){echo("selected");}?>>Percent</option>
 				</select></br>
-				<h4>Background Color</h4><input type="text" name="bgcolor" value="<?php echo get_post_meta($post_id,'Slider_Bgcolor',true); ?>"></br>
+				<h4>Background Color</h4><input type="text" class="jscolor" name="bgcolor" value="<?php echo get_post_meta($post_id,'Slider_Bgcolor',true); ?>"></br>
 				<input type="hidden" name="update"></input>
 				<input type="hidden" name="slider_id" value="<?php echo $post_id; ?>">
 			</div>
@@ -148,7 +150,7 @@
 									<h4>Content</h4>
 										<?php
 										$editor_id = 'slide_editor'.$i;
-										$settings = array( 'media_buttons' => false, 'textarea_name'=> 'slide_content[]','editor_height'=>'75px','editor_css'=>'<style>.wp-editor-wrap{width: 175px;}</style>');
+										$settings = array( 'media_buttons' => false, 'textarea_name'=> 'slide_content[]','editor_height'=>'75px','editor_class'=>'bshift-editor','editor_css'=>'<style>.wp-editor-wrap{width: 175px;}</style>');
 										$content = ($new_array['slide_content'][$i])? $new_array['slide_content'][$i] : ' ';
 										wp_editor( $content, $editor_id, $settings);
 										
@@ -184,10 +186,14 @@
 										<input type="text" class="slide_input" name="index[]" value="<?php echo $i; ?>"></input>
 										<input class="slide_input image_url" name="slide_upload[]" value="<?php echo $new_array['slide_upload'][$i]; ?>" type="text"></input>
 										<input class="upload_image_button" value="Add Image" data-target="slide-button-preview" type="button"></input>
-										<img src="<?php echo plugin_dir_url(__FILE__); ?>/img/delete-512.png" data-ref="<?php echo $i; ?>" class="delete_slide" title="Delete this slide."/>
+										<img src="<?php echo plugin_dir_url(__FILE__); ?>/img/delete-512.png" class="delete_slide" title="Delete this slide."/>
 										<img src="<?php echo plugin_dir_url(__FILE__); ?>/img/prev.png" class="b-preview" title="Preview this slide." />
-										<div class="slide-preview" style="background-image: url('<?php echo $new_array['slide_upload'][$i]; ?>'); background-size:cover; width: <?php echo $new_array['width'][$i]; ?><?php echo $new_array['width_metric'][$i]; ?>; height: <?php echo $new_array['height'][$i]; ?><?php echo get_post_meta($post_id,'Slider_Height_Metric',true); ?>;">
-											<?php echo $new_array['slide_content'][$i]; ?>
+										<div class="slide-preview" >
+											<div style="background-image: url('<?php echo $new_array['slide_upload'][$i]; ?>'); background-position: 0; background-size:cover; width: <?php echo $new_array['width'][$i]; ?><?php echo $new_array['width_metric'][$i]; ?>; height: <?php echo $new_array['height'][$i]; ?><?php echo get_post_meta($post_id,'Slider_Height_Metric',true); ?>;">
+												<span class="slide-nav-left" data-direction="left"></span>
+                    							<span class="slide-nav-right" data-direction="right"></span>
+												<?php echo $new_array['slide_content'][$i]; ?>
+											</div>
 										</div>
 										<!--<input type="submit" name="delete[]" value="delete slide" data-ref="<?php echo $i; ?>" class="delete_slide"></input>-->
 										<input type="hidden" name="counter[]"></input>
@@ -196,7 +202,7 @@
 							</li>
 						<?php } ?>
 			<?php endif; ?>
-			<input type="hidden" name="save_slides" />
+			<input type="hidden" name="save_slides" data-slide-staus="" />
 			<input type="submit" value="save/edit" class="btn_save"/>
 		</form>
 		

@@ -24,11 +24,11 @@ jQuery(document).ready(function($){
 
         var parent = $(this).parent();
         var grand_parent = $(parent).parent();
-        console.log(grand_parent);
+        //console.log(grand_parent);
         var engaged = $(grand_parent).find('.engaged');
         $(engaged).removeClass('engaged');
         var active_slide = $(parent).find('.ib');
-        //console.log(active_slide);
+        console.log(active_slide);
         var obj = $('.ib.show_slide');
         //console.log(obj);
         $(obj).removeClass('show_slide').addClass('collapse');
@@ -42,11 +42,20 @@ jQuery(document).ready(function($){
         var garbage = $(this).parent();
         $(garbage).remove();
         $('.btn_save').show();
-        console.log(garbage);
+        console.log($(this).attr('data-ref'));
+        if($(this).attr('data-ref')==0) {
+            location.reload();
+        }
         
     });
 
+    $(document).on('click','.b-current .switch-html', function() {
+        $('.mce-tinymce').hide();
+        $('.b-current .bshift-editor').show();
+    });
+
     $(document).on('click','#new_slide',function(e) {
+        $(this).hide();
         var pid = $(this).attr('data-pid');
         var parent = $(this).context;
         console.log($(parent).attr('id'));
@@ -71,40 +80,45 @@ jQuery(document).ready(function($){
             //console.log(ret);
             //$('.btn_save').after(dynamic_box);
             var slides = $('#slides').find('.ib');
-            console.log(slides);
+            //console.log(dynamic_box);
             $('.ib').hide();
-            $('.current').show();
-            $(".slide_content").val(slides_length);
+            $('.b-current').show();
+            //$(".slide_content").val(slides_length);
             var slide_name = 'content['+slides_length+']';
             //console.log(dynamic_box);
             $(".slide_content").attr('name',slide_name);
-            
+            //$(".slide_label").after(dynamic_box);
             //$('.wp-core-ui').attr('id',slides_length);
-            $(".current input[class='slide_width']").val(width);
-            $(".current input[class='slide_height']").val(height);
+            $(".b-current input[class='slide_width']").val(width);
+            $(".b-current input[class='slide_height']").val(height);
             //$(".ib input[class='slide_effect']").val(effect);
-            $(".current input[class='slide_delay']").val(delay);
-            $(".current input[class='slide_index']").val(slides_length);
-            $(".current select[class='slide_effect']").val(effect);
-            $(".current select[class='slide_width_metric']").val(width_metric);
-            $(".current textarea").attr('name','slide_content['+slides_length+']');
+            $(".b-current input[class='slide_delay']").val(delay);
+            $(".b-current input[class='slide_index']").val(slides_length);
+            $(".b-current select[class='slide_effect']").val(effect);
+            $(".b-current select[class='slide_width_metric']").val(width_metric);
+            //$(".b-current textarea").attr('name','slide_content['+slides_length+']');
             
-            $(".current h4[class='slide_content_label']").attr('id',slides_length);
+            $(".b-current h4[class='slide_content_label']").attr('id',slides_length);
+            $('.delete_slide').css('margin-top','0px');
+            
             //$(".slide_content_label").append(dynamic_box);
 
-            /*tinyMCE.init({ selector : ".insert_tools",
+            tinyMCE.init({ 
+                            selector : ".bshift-editor",
+                            valid_elements : 'h2,h3',
                             plugins : ['wplink fullscreen'],
                             menubar : false, 
                             toolbar1: 'bold italic strikethrough bullist numlist | ',
                             toolbar2: 'blockquote hr alignleft aligncenter alignright |', 
                             toolbar3: ' link unlink | more fullscreen toggle'
-                        });*/
+                        });
             
         });
-
+        
         $('.btn_save').show();
-        var string = "";
-        string += '<div class="current"><h4>Content</h4>';
+        $(document).on('click','.btn_save', function() { console.log($('.b-current textarea').val());});
+        /*
+        string += '<div class="b-current"><h4>Content</h4>';
         string += '<div id="wp-slide_editor'+ slides_length +'-wrap" class="wp-core-ui wp-editor-wrap html-active">';
         string += '<style>.wp-editor-wrap{width: 175px;}</style>';
         string += '<div id="wp-slide_editor2-editor-tools" class="wp-editor-tools hide-if-no-js"><div class="wp-editor-tabs">';
@@ -113,8 +127,8 @@ jQuery(document).ready(function($){
         string += '<div id="wp-slide_editor'+ slides_length +'-editor-container" class="wp-editor-container"><div id="qt_slide_editor2_toolbar" class="insert_tools quicktags-toolbar">';
         string += '<input id="qt_slide_editor2_strong" class="ed_button button button-small" aria-label="Bold" value="b" type="button"><input id="qt_slide_editor2_em" class="ed_button button button-small" aria-label="Italic" value="i" type="button"><input id="qt_slide_editor2_link" class="ed_button button button-small" aria-label="Insert link" value="link" type="button"><input id="qt_slide_editor2_block" class="ed_button button button-small" aria-label="Blockquote" value="b-quote" type="button"><input id="qt_slide_editor2_del" class="ed_button button button-small" aria-label="Deleted text (strikethrough)" value="del" type="button"><input id="qt_slide_editor2_ins" class="ed_button button button-small" aria-label="Inserted text" value="ins" type="button"><input id="qt_slide_editor2_img" class="ed_button button button-small" aria-label="Insert image" value="img" type="button"><input id="qt_slide_editor2_ul" class="ed_button button button-small" aria-label="Bulleted list" value="ul" type="button"><input id="qt_slide_editor2_ol" class="ed_button button button-small" aria-label="Numbered list" value="ol" type="button"><input id="qt_slide_editor2_li" class="ed_button button button-small" aria-label="List item" value="li" type="button"><input id="qt_slide_editor2_code" class="ed_button button button-small" aria-label="Code" value="code" type="button"><input id="qt_slide_editor2_more" class="ed_button button button-small" aria-label="Insert Read More tag" value="more" type="button"><input id="qt_slide_editor2_close" class="ed_button button button-small" title="Close all open tags" value="close tags" type="button">';
         string += '</div>';
-        string += '<textarea aria-hidden="false" class="wp-editor-area" style="height: 75px;" autocomplete="off" cols="40" name="slide_content[]" id="slide_editor2">';
-        string += '</textarea></div></div>';
+        string += '<textarea aria-hidden="false" class="wp-editor-area bshift-editor" style="height: 75px;" autocomplete="off" cols="40" name="slide_content[]" id="slide_editor2">';
+        string += '</textarea></div></div>';*/
         /*
         string += '<div id="mceu_18-body"><div aria-label="Bold" role="button" id="mceu_0" class="mce-widget mce-btn mce-first" tabindex="-1" aria-labelledby="mceu_0">';
         string += '<button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-bold"></i></button></div>';
@@ -146,15 +160,14 @@ jQuery(document).ready(function($){
         string += '<div id="mceu_21" class="mce-path mce-flow-layout-item mce-first"><div role="button" class="mce-path-item mce-last" data-index="0" tabindex="-1" id="mceu_21-0" aria-level="0">p</div></div>';
         string += '<div id="mceu_22" class="mce-flow-layout-item mce-last mce-resizehandle"><i class="mce-ico mce-i-resize"></i></div></div></div></div></div>';
         string += '</div></div>';*/
-        $('.btn_save').before(string+'<!--<input type="text" name="content[]"></input>--><h4>Width</h4><input type="text" name="width[]" class="slide_width" value="" ></input><br><select name="width_metric[]" class="slide_width_metric"><option value="px" class="slide_width_metric_px" selected="">Pixels</option><option value="%" class="slide_width_metric_pc" selected="">Percent</option></select></br><h4>Height</h4><input type="text" name="height[]" class="slide_height" value="" ></input><h4>Delay</h4><input type="text" name="delay[]" value="" class="slide_delay" ></input><h4>Effect</h4><select name="effect" class="slide_effect"><option value="fader">Fade</option><option value="slide_vertical">Slide Vertical</option><option value="slide_left">Slide Left</option><option value="slide_right">Slide Right</option><option value="toggle">Standard Toggle</option></select><h4>Index</h4><input type="text" name="index[]" class="slide_index"></input><input class="slide_input image_url" name="slide_upload[]" value="" type="text"></input><input class="upload_image_button" value="Add Image" data-target="brafton-end-button-preview" type="button"></input><img src="../wp-content/plugins/B-Shift//img/delete-512.png" data-ref="<?php echo $i; ?>" class="delete_slide" title="Delete this slide."/><img src="../wp-content/plugins/B-Shift//img/prev.png" class="b-preview" title="Preview this slide."/><div class="slide-preview"></div><input type="hidden" name="counter[]"></input></div>'); 
-    });
+        $('.btn_save').before('<div class="b-current"><h4 class="slide_label">Content</h4><textarea hidden="true" class="bshift-editor wp-editor-area" style="height: 182px;" autocomplete="off" cols="40" name="slide_content[]"></textarea><h4>Width</h4><input type="text" name="width[]" class="slide_width" value="" ></input><br><select name="width_metric[]" class="slide_width_metric"><option value="px" class="slide_width_metric_px" selected="">Pixels</option><option value="%" class="slide_width_metric_pc" selected="">Percent</option></select></br><h4>Height</h4><input type="text" name="height[]" class="slide_height" value="" ></input><h4>Delay</h4><input type="text" name="delay[]" value="" class="slide_delay" ></input><h4>Effect</h4><select name="effect[]" class="slide_effect"><option value="fader">Fade</option><option value="slide_vertical">Slide Vertical</option><option value="slide_left">Slide Left</option><option value="slide_right">Slide Right</option><option value="toggle">Standard Toggle</option></select><h4>Index</h4><input type="text" name="index[]" class="slide_index"></input><input class="slide_input image_url" name="slide_upload[]" value="" type="text"></input><input class="upload_image_button" value="Add Image" data-target="brafton-end-button-preview" type="button"></input><img src="../wp-content/plugins/B-Shift//img/delete-512.png" data-ref="0" class="delete_slide" title="Delete this slide."/><img src="../wp-content/plugins/B-Shift//img/prev.png" class="b-preview" title="Preview this slide."/><div class="slide-preview"></div><input type="hidden" name="counter[]"></input></div>');});
 
     $(document).on('click','.b-preview', function() {
             var img_src = $(this).attr('src');
-            console.log(img_src);
+            console.log($('.b-current textarea').val());
 
           if (img_src.indexOf("prev") >= 0) {
-                console.log('true');
+                
                 $(this).attr('src','../wp-content/plugins/B-Shift//img/delete-button.jpg');
                 $(this).attr("title","Remove preview");
             }else {
@@ -171,7 +184,6 @@ jQuery(document).ready(function($){
             
             
     });
-
 
     
 });
