@@ -163,13 +163,13 @@
 											<option value="px" <?php if($selected_metric == 'px'){echo("selected");}?>>Pixels</option>
 											<option value="%" <?php if($selected_metric == '%'){echo("selected");}?>>Percent</option>
 										</select></br>
-									<h4>Height</h4>
+									<!--<h4>Height</h4>
 										<input type="text" class="slide_input" name="height[]" value="<?php echo $new_array['height'][$i]; ?>"></input>
 										<?php $selected_metric = ($new_array['height_metric'][$i])? $new_array['height_metric'][$i] : get_post_meta($post_id,'Slider_Height_Metric',true); ?>
 										<select name="height_metric[]" class="<?php echo $selected_metric; ?> metric">
 											<option value="px" <?php if($selected_metric == 'px'){echo("selected");}?>>Pixels</option>
 											<option value="%" <?php if($selected_metric == '%'){echo("selected");}?>>Percent</option>
-										</select></br>
+										</select></br>-->
 									<h4>Delay</h4>
 										<input type="text" class="slide_input" name="delay[]" value="<?php echo $new_array['delay'][$i]; ?>"></input>
 									<h4>Effect</h4>
@@ -187,12 +187,12 @@
 										<input class="slide_input image_url" name="slide_upload[]" value="<?php echo $new_array['slide_upload'][$i]; ?>" type="text"></input>
 										<input class="upload_image_button" value="Add Image" data-target="slide-button-preview" type="button"></input>
 										<img src="<?php echo plugin_dir_url(__FILE__); ?>/img/delete-512.png" class="delete_slide" title="Delete this slide."/>
-										<img src="<?php echo plugin_dir_url(__FILE__); ?>/img/prev.png" class="b-preview" title="Preview this slide." />
+										<!--<img src="<?php echo plugin_dir_url(__FILE__); ?>/img/prev.png" class="b-preview" title="Preview this slide." />-->
 										<div class="slide-preview" >
 											<div style="background-image: url('<?php echo $new_array['slide_upload'][$i]; ?>'); background-position: 0; background-size:cover; width: <?php echo $new_array['width'][$i]; ?><?php echo $new_array['width_metric'][$i]; ?>; height: <?php echo $new_array['height'][$i]; ?><?php echo get_post_meta($post_id,'Slider_Height_Metric',true); ?>;">
 												<span class="slide-nav-left" data-direction="left"></span>
                     							<span class="slide-nav-right" data-direction="right"></span>
-												<?php echo $new_array['slide_content'][$i]; ?>
+												<div style="position: relative; top: 50%; transform: translateY(-50%);"><?php echo $new_array['slide_content'][$i]; ?></div>
 											</div>
 										</div>
 										<!--<input type="submit" name="delete[]" value="delete slide" data-ref="<?php echo $i; ?>" class="delete_slide"></input>-->

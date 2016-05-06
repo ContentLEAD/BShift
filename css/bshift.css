@@ -94,7 +94,6 @@ input.slide_input.image_url {
 .slide-preview {
 	position: absolute;
 	left: 200px;
-	display: none;
 	z-index: 9;
 	text-align: center;
 	bottom: 300px;
