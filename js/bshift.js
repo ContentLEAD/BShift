@@ -95,7 +95,7 @@
                                     break;
                                 case 'slide_left':
                                     jQuery(nextSlide).css({'display':'block','left': '2000px'});
-                                    jQuery(nextSlide).animate({"left" : "0px"},500,function(){jQuery(this).addClass('b-active');});
+                                    jQuery(nextSlide).animate({"left" : "0px"},400,function(){jQuery(this).addClass('b-active');});
                                     jQuery(currentSlide).hide(function(){jQuery(this).removeClass('b-active');});
                                     break;
                                 case 'fader':

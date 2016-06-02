@@ -27,7 +27,7 @@
 jQuery(document).ready(function($){
     $(document).on('click','.upload_image_button',function(e) {
         jQuery.data(document.body, 'prevElement', $(this).prev());
-        console.log($(this).prev());
+        //console.log($(this).prev());
         jQuery.data(document.body, 'nextElement', $(this).next());
         jQuery.data(document.body, 'previewImage', $(this).attr('data-target'));
         //console.log($(this).next());
@@ -38,15 +38,17 @@ jQuery(document).ready(function($){
             multiple: false
         }).open()
         .on('select', function(e){
+            
+            console.log($('.slide-preview div'));
             // This will return the selected image from the Media Uploader, the result is an object
             var uploaded_image = image.state().get('selection').first();
             // We convert uploaded_image to a JSON object to make accessing it easier
             // Output to the console uploaded_image
             var image_url = uploaded_image.toJSON().url;
-            console.log(image_url);
+            //console.log(image_url);
             // Let's assign the url value to the input field
             var inputText = jQuery.data(document.body, 'prevElement');
-            console.log(inputText);
+            //console.log(inputText);
             var showImage = jQuery.data(document.body, 'nextElement');
             var imgPreview = $('#'+jQuery.data(document.body, 'previewImage'));
             //console.log(imgPreview);
@@ -60,7 +62,7 @@ jQuery(document).ready(function($){
                 }
                 
             }
-            console.log(image);
+            $('.much_hate').css({'background-image': 'url('+image_url+')', 'background-size': 'cover', 'background-position': '0px center'});
             $('.btn_save').show();
         });
     });

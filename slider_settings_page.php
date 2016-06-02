@@ -13,8 +13,8 @@
 	</select></br>
 	<h4>Height</h4><input type="text" name="height">
 	<select name="height_metric">
-		<option value="pixels">Pixels</option>
-		<option value="percent">Percent</option>
+		<option value="px">Pixels</option>
+		<option value="%">Percent</option>
 	</select></br>
 	<h4>Width</h4><input type="text" name="width">
 	<select name="width_metric" >
@@ -29,6 +29,7 @@
 		<option value="slide_left">Slide Left</option>
 		<option value="slide_right">Slide Right</option>
 		<option value="toggle">Standard Toggle</option>
+		<option value="rotate">Invert</option>
 	</select></br>
 	<input type="hidden" name="add_new_slider" value="1"></br>
 	<input type="submit" name="" value="Create"></br>

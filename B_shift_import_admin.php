@@ -14,7 +14,7 @@ padding: 4px; background-color: #FFF; font-weight: 600; text-decoration: none;" 
     <div class="row">
     <?php 
 
-        $slider_query = new WP_Query(array('post_type' => 'b-shift-slider','post_status'=>any));
+        $slider_query = new WP_Query(array('post_type' => 'b-shift-slider','post_status'=>'any'));
 
         if($slider_query->have_posts()) : while ($slider_query->have_posts()) : $slider_query->the_post(); ?>
 

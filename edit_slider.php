@@ -1,6 +1,13 @@
 <?php
 	
-	$post_id = isset($_GET['slider_id'])? $_GET['slider_id'] : $_POST['slider_id'];
+	if(isset($_POST['add_new_slider'])) {
+
+		$post_id = get_the_id(); 
+	} else {
+		$post_id = isset($_GET['slider_id'])? $_GET['slider_id'] : $_POST['slider_id'];
+	}
+
+	
 	if(isset($_POST['update'])) {
 	
 	  	if($_POST) { 
@@ -19,24 +26,19 @@
 	
 	}
 
-	if(isset($_POST['add_new_slider'])) {
-
-		$post_id = get_the_id(); 
-	}
 
 	if(isset($_POST['save_slides'])) {
 		echo '</br>';
-		echo '<pre>';
-		var_dump($_POST);
-		echo '</pre>';
+		
 		$len = (sizeof($_POST['counter']))? sizeof($_POST['counter']) : sizeof($_POST['content']);
 		$temp_array = array(array());
 		for($i=0;$i<$len;$i++) {
 			$index = ($_POST['index'][$i]=="")? $i : trim($_POST['index'][$i]);
 			if($index!=$i) {
 					$temp_array['slide_content'][$index] = $_POST['slide_content'][$i];
+					$temp_array['color'][$index] = $_POST['color'][$i];
 					$temp_array['effect'][$index] = $_POST['effect'][$i];
-					$temp_array['height'][$index] = $_POST['height'][$i];
+					//$temp_array['height'][$index] = $_POST['height'][$i];
 					$temp_array['width'][$index] = $_POST['width'][$i];
 					$temp_array['width_metric'][$index] = $_POST['width_metric'][$i];
 					$temp_array['delay'][$index] = $_POST['delay'][$i];
@@ -44,8 +46,9 @@
 					$temp_array['index'][$index] = $index;
 			} else{
 					$temp_array['slide_content'][$i] = $_POST['slide_content'][$i];
+					$temp_array['color'][$i] = $_POST['color'][$i];
 					$temp_array['effect'][$i] = $_POST['effect'][$i];
-					$temp_array['height'][$i] = $_POST['height'][$i];
+					//$temp_array['height'][$i] = $_POST['height'][$i];
 					$temp_array['width'][$i] = $_POST['width'][$i];
 					$temp_array['width_metric'][$i] = $_POST['width_metric'][$i];
 					$temp_array['delay'][$i] = $_POST['delay'][$i];
@@ -65,8 +68,8 @@
 				update_post_meta($post_id,'Slides_Array_Count',$temp_array_len);
 				
 				}else {
-					add_post_meta($post_id,'Slides_Array',$temp_array,unique);
-					add_post_meta($post_id,'Slides_Array_Count',$temp_array_len,unique);
+					add_post_meta($post_id,'Slides_Array',$temp_array);
+					add_post_meta($post_id,'Slides_Array_Count',$temp_array_len);
 				}
 		}
 	}
@@ -75,8 +78,7 @@
  ?>
 
 	<div class="container">
-		<form action=" " class="row" method="post">
-			
+		<form action=" " class="row gen-settings-form" method="post">
 			<div class="col-md-4">
 				<h4>TITLE</h4>
 				<input type="text" name="title" value="<?php echo get_post_meta($post_id,'Slider_Name',true); ?>"></input></br>
@@ -123,7 +125,7 @@
 					<option value="slide_left" <?php if($selected_effect == 'slide_left'){echo("selected");}?>>Slide Left</option>
 					<option value="slide_right" <?php if($selected_effect == 'slide_right'){echo("selected");}?>>Slide Right</option>
 					<option value="toggle" <?php if($selected_effect == 'toggle'){echo("selected");}?>>Standard Toggle</option>
-
+					<option value="rotate" <?php if($selected_effect == 'rotate'){echo("selected");}?>>Invert</option>
 				</select>
 			</div>
 			
@@ -148,14 +150,16 @@
 								<li style="display: inline-block; vertical-align: top;"><h2 class="<?php if($i==0) { echo 'slide_title engaged'; } else { echo 'slide_title';} ?>">Slide <?php echo $i ?></h2>
 								<div class="<?php if($i==0) { echo 'ib show_slide'; } else { echo 'ib collapse';} ?>">
 									<h4>Content</h4>
+										<!--Slide editor is loaded here -->
 										<?php
 										$editor_id = 'slide_editor'.$i;
-										$settings = array( 'media_buttons' => false, 'textarea_name'=> 'slide_content[]','editor_height'=>'75px','editor_class'=>'bshift-editor','editor_css'=>'<style>.wp-editor-wrap{width: 175px;}</style>');
+										$settings = array( 'media_buttons' => false, 'textarea_name'=> 'slide_content[]','editor_height'=>'75px','editor_class'=>'bshift-editor','editor_css'=>'<style>.wp-editor-wrap{width: 255px;}</style>');
 										$content = ($new_array['slide_content'][$i])? $new_array['slide_content'][$i] : ' ';
-										wp_editor( $content, $editor_id, $settings);
+										//$box = wp_editor( $content, $editor_id, $settings);
 										
 										?>
-										<!--<textarea class="slide_input wp-editor-area" name="content[]" value="<?php echo $new_array['content'][$i]; ?>"><?php echo $new_array['content'][$i]; ?></textarea>-->
+										<textarea class="slide_input bshift-editor" name="slide_content[]"><?php echo $content; ?></textarea>
+									<h4>Content Color</h4><input type="text" class="jscolor slide_input" name="color[]" value=<?php echo $new_array['color'][$i];?>></br>
 									<h4>Width</h4>
 										<input type="text" class="slide_input" name="width[]" value="<?php echo $new_array['width'][$i];?>"></input>
 										<?php $selected_metric = ($new_array['width_metric'][$i])? $new_array['width_metric'][$i] : get_post_meta($post_id,'Slider_Width_Metric',true); ?>
@@ -174,14 +178,14 @@
 										<input type="text" class="slide_input" name="delay[]" value="<?php echo $new_array['delay'][$i]; ?>"></input>
 									<h4>Effect</h4>
 										<?php $selected_effect = $new_array['effect'][$i]; ?>
-				<select name="effect[]" class="slide_input">
-					<option value="fader" <?php if($selected_effect == 'fader'){echo("selected");}?>>Fade</option>
-					<option value="slide_vertical" <?php if($selected_effect == 'slide_vertical'){echo("selected");}?>>Slide Vertical</option>
-					<option value="slide_left" <?php if($selected_effect == 'slide_left'){echo("selected");}?>>Slide Left</option>
-					<option value="slide_right" <?php if($selected_effect == 'slide_right'){echo("selected");}?>>Slide Right</option>
-					<option value="toggle" <?php if($selected_effect == 'toggle'){echo("selected");}?>>Standard Toggle</option>
-					
-				</select>
+									<select name="effect[]" class="slide_input">
+										<option value="fader" <?php if($selected_effect == 'fader'){echo("selected");}?>>Fade</option>
+										<option value="slide_vertical" <?php if($selected_effect == 'slide_vertical'){echo("selected");}?>>Slide Vertical</option>
+										<option value="slide_left" <?php if($selected_effect == 'slide_left'){echo("selected");}?>>Slide Left</option>
+										<option value="slide_right" <?php if($selected_effect == 'slide_right'){echo("selected");}?>>Slide Right</option>
+										<option value="toggle" <?php if($selected_effect == 'toggle'){echo("selected");}?>>Standard Toggle</option>
+										<option value="rotate" <?php if($selected_effect == 'rotate'){echo("selected");}?>>Invert</option>
+									</select>
 									<h4>Index</h4>
 										<input type="text" class="slide_input" name="index[]" value="<?php echo $i; ?>"></input>
 										<input class="slide_input image_url" name="slide_upload[]" value="<?php echo $new_array['slide_upload'][$i]; ?>" type="text"></input>
@@ -189,10 +193,10 @@
 										<img src="<?php echo plugin_dir_url(__FILE__); ?>/img/delete-512.png" class="delete_slide" title="Delete this slide."/>
 										<!--<img src="<?php echo plugin_dir_url(__FILE__); ?>/img/prev.png" class="b-preview" title="Preview this slide." />-->
 										<div class="slide-preview" >
-											<div style="background-image: url('<?php echo $new_array['slide_upload'][$i]; ?>'); background-position: 0; background-size:cover; width: <?php echo $new_array['width'][$i]; ?><?php echo $new_array['width_metric'][$i]; ?>; height: <?php echo $new_array['height'][$i]; ?><?php echo get_post_meta($post_id,'Slider_Height_Metric',true); ?>;">
+											<div style="color: #<?php echo $new_array['color'][$i]; ?>; background-image: url('<?php echo $new_array['slide_upload'][$i]; ?>'); background-position: 0; background-size:cover; width: <?php echo $new_array['width'][$i]; ?><?php echo $new_array['width_metric'][$i]; ?>; height: <?php echo get_post_meta($post_id,'Slider_Height',true); ?><?php echo get_post_meta($post_id,'Slider_Height_Metric',true); ?>;">
 												<span class="slide-nav-left" data-direction="left"></span>
                     							<span class="slide-nav-right" data-direction="right"></span>
-												<div style="position: relative; top: 50%; transform: translateY(-50%);"><?php echo $new_array['slide_content'][$i]; ?></div>
+												<div style="position: relative; top: 50%; transform: translateY(-50%);"><?php echo html_entity_decode($new_array['slide_content'][$i]); ?></div>
 											</div>
 										</div>
 										<!--<input type="submit" name="delete[]" value="delete slide" data-ref="<?php echo $i; ?>" class="delete_slide"></input>-->

@@ -27,20 +27,25 @@ function b_plugin_ajaxurl() {
          </script>';
 }
 
-function load_wp_media_files() {
+function load_wp_media_files($hook) {
     
+    wp_register_script('brafton-mce','//cdn.tinymce.com/4/tinymce.min.js');
     wp_enqueue_media();
     wp_enqueue_script('jquery');
     wp_enqueue_script('thickbox');
     wp_enqueue_script('media-models');
     wp_enqueue_script('media-upload');
-    wp_enqueue_script('jquery-ui');
+    //wp_enqueue_script('jquery-ui');
     wp_enqueue_style('jquery-ui','//code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css');
-    wp_enqueue_style('bootstrap','https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css');
+    if($hook !== 'post.php') {
+                        wp_enqueue_style('bootstrap','https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css');
+                    }
     wp_enqueue_style('bshift',plugin_dir_url(__FILE__).'css/bshift.css', array());
     wp_enqueue_script('add-slider',plugin_dir_url(__FILE__).'js/add_slider.js', array());
     wp_enqueue_script('upload_media_widget', plugin_dir_url(__FILE__).'js/upload-media.js', array());
     wp_enqueue_script('color-picker',plugin_dir_url(__FILE__).'js/jscolor.js', array());
+    wp_enqueue_script('brafton-mce');
+
 }
 add_action('admin_enqueue_scripts','load_wp_media_files' );
 
@@ -55,7 +60,7 @@ function b_shift_admin() {
 
 function b_shift_admin_actions() {
    
-    add_menu_page("B-Shift", "B-Shift", 1, "B-Shift", "b_shift_admin");
+    add_menu_page("B-Shift", "B-Shift", "manage_options", "B-Shift", "b_shift_admin");
     add_submenu_page(
         'b-shift', //B-Shift slug
         'Create Slider Page',
@@ -78,7 +83,7 @@ function b_shift_admin_actions() {
 
 function b_shift_submenu_page_callback() {
     if(isset($_POST['add_new_slider'])){
-    echo "created</br>";
+    
         //call another function to insert post on form submission and return slider id
     $b_slider_id = create_slider();
 	include('edit_slider.php');
@@ -130,15 +135,15 @@ function create_slider() {
     		);
 
 		$post = wp_insert_post( $vars );
-		add_post_meta($post,'Slider_Name',$title,unique);
-		add_post_meta($post,'Slider_Delay',$delay,unique);
-        add_post_meta($post,'Slider_State',$state,unique);
-        add_post_meta($post,'Slider_Height',$height,unique);
-        add_post_meta($post,'Slider_Height_Metric',$height_metric,unique);
-        add_post_meta($post,'Slider_Width',$width,unique);
-        add_post_meta($post,'Slider_Effect',$effect,unique);
-        add_post_meta($post,'Slider_Bgcolor',$bgcolor,unique);
-        add_post_meta($post,'Slider_Width_Metric',$width_metric,unique);
+		add_post_meta($post,'Slider_Name',$title);
+		add_post_meta($post,'Slider_Delay',$delay);
+        add_post_meta($post,'Slider_State',$state);
+        add_post_meta($post,'Slider_Height',$height);
+        add_post_meta($post,'Slider_Height_Metric',$height_metric);
+        add_post_meta($post,'Slider_Width',$width);
+        add_post_meta($post,'Slider_Effect',$effect);
+        add_post_meta($post,'Slider_Bgcolor',$bgcolor);
+        add_post_meta($post,'Slider_Width_Metric',$width_metric);
 
 }
 
@@ -151,11 +156,12 @@ function bshift_callback() {
 
     $pid = intval( $_POST['id'] );
     ob_start();
-    $current = get_post_meta($pid,'Slides_Array_Count',true);
-    $editor_id = 'slide_editor'.$current;
+    /*$current = get_post_meta($pid,'Slides_Array_Count',true);
+    $editor_id = 'slide_editor';
     $settings = array( 'media_buttons' => false, 'textarea_name'=> 'slide_content[]','editor_height'=>'75px','editor_css'=>'<style>.wp-editor-wrap{width: 175px;}a#content-tmce, a#content-tmce:hover, #qt_content_fullscreen textarea{ display:none;}</style>');
     $content = "";
-    wp_editor($content,$editor_id, $settings); 
+
+    wp_editor($content,$editor_id, $settings); */
     $link = ob_get_contents();
     ob_end_clean();
 
@@ -174,6 +180,8 @@ function bshift_callback() {
     $ajax_array['lid'] = $lid;
     $ajax_array['cid'] = $cid;
     $ajax_array['widm'] = $widm;
+
+    //echo '<script type="text/javascript" src="/wp-includes/js/tinymce/tinymce.min.js"></script>';
 
     echo json_encode($ajax_array);
 
@@ -217,12 +225,13 @@ function bshift_shortcode($atts) {
                 data-speed="<?php echo $slides['delay'][$i]; ?>" data-effect="<?php echo $slides['effect'][$i]; ?>" style="background-image: url('<?php echo $slides['slide_upload'][$i]; ?>'); 
                 background-size:cover; width: <?php echo $slides['width'][$i]; echo $slides['width_metric'][$i]; ?>; height: 100%; background-position: 0, <?php echo $total_width; ?>;  ">
                     <!-- this div needs to be placed perfect center not center text.  contrain it so it is not 100% of the parent container add slight padding and center div horiz and vertic.  DO NOT center content -->     
-                <div class="b-shift-content">
+                <div class="b-shift-content" style="color: #<?php echo $slides['color'][$i]; ?>">
                     <!-- need to start setting some basic constraitns on the elements to ensure they always render as good as possible under minimal settings. -->
                     <span class="slide-nav-left" data-direction="left"></span>
                     <span class="slide-nav-right" data-direction="right"></span>                    
                     
                     <?php echo html_entity_decode($slides['slide_content'][$i]); ?>
+
 
 
 

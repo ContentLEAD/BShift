@@ -21,7 +21,7 @@
   position: absolute;
   left: -20px;
   border-bottom: 30px solid transparent;
-  border-right: 30px solid #FFF;
+  border-right: 30px solid;
   opacity: 0.6;
 }
 /* line 29, sass/new_sass.scss */
@@ -37,7 +37,7 @@
   position: absolute;
   right: -20px;
   border-bottom: 30px solid transparent;
-  border-left: 30px solid #FFF;
+  border-left: 30px solid;
   opacity: 0.6;
 }
 /* line 45, sass/new_sass.scss */
@@ -79,6 +79,9 @@
   padding-left: 65px;
   padding-right: 65px;
   margin: 0px !important;
+}
+.b-frame h2, .b-frame h3 {
+  margin: 0;
 }
 
 @media (max-width: 768px) {
